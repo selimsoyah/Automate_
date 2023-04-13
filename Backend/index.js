@@ -30,24 +30,31 @@ app.post('/register',(req,res)=> {
 })    
 
 
-app.post('/retrieve' ,(req,res)=>{
-    const  name = req.body.name;
+app.post('/register', (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const phonenumber = req.body.phonenumber;
     const password = req.body.password;
-    db.query(
-        "SELECT * from User WHERE username = ? AND password =? ",[name,password] ,(err,result) =>{
-        if(err){
-            console.log(err);
-            res.send({err:err})
-        }
-
-        if(result){
-            res.send(result)
-        }
-        else{
-            res.send({message:"Wrong Password Or Email Please Check Again"});
-        }
-    })
-})
+    const mecorcar = req.body.mecorcar;
+    
+    db.query('SELECT * FROM username WHERE email = ?', [email], (err, result) => {
+      if (result.length > 0) {
+        res.send('Email already exists, please choose another one');
+      } else {
+        db.query('INSERT INTO username(username, email, phonenumber, password, mecorcar) VALUES (?, ?, ?, ?, ?)',
+          [name, email, phonenumber, password, mecorcar],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              res.send('Error inserting user data');
+            } else {
+              res.send('All the attributes were inserted into our tables!');
+            }
+          }
+        );
+      }
+    });
+  });
 app.listen(port, () => {
     console.log(`Server Is Runnning On Your Port ${port}`);
 });
