@@ -1,7 +1,37 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
-import React from 'react'
+import React , {useState,useEffect} from 'react'
+import Axios from 'axios'
 
-export default function ShopCreation({ navigation }) {
+export default function ShopCreation({ navigation , route }) {
+   
+    const [longitude,setLongitude] = useState(0)
+    const [latitude,setLatitude] = useState(0)
+    const [store_name,setName] = useState('')
+    const [categories,setCategories] = useState('')
+
+    useEffect(()=>{
+        // console.log(route.params)
+        if(route.params !== undefined ){
+            setLatitude(route.params.propLatitude)
+            setLongitude(route.params.propLongitude)
+            console.log(longitude,latitude)
+        }
+    },[route.params])
+
+    const addShopInfo = async ()=>{
+        const shopData ={
+            store_name : store_name,
+            latitude:latitude,
+            longitude : longitude,
+            categories:categories
+        }
+            try{
+                const result = await Axios.post("http://192.168.1.113:3000/location",shopData)
+                console.log('data added successfully', result.data);
+            }catch (err){
+                console.log(err)
+            }
+    }
     return (
         <View style={styles.container}>
             <Text style={[styles.textdecoration, styles.mainText]}>Adding A Store</Text>
@@ -11,6 +41,7 @@ export default function ShopCreation({ navigation }) {
                     <Text style={[styles.textdecoration, styles.labels]}>Give It A Specific Name :</Text>
                     <TextInput
                         style={styles.inputs}
+                        onChangeText={setName}
                     />
                 </View>
 
@@ -19,24 +50,11 @@ export default function ShopCreation({ navigation }) {
                     <Text style={[styles.textdecoration, styles.labels]}>Speciality of the store :</Text>
                     <TextInput
                         style={styles.inputs}
+                        onChangeText={setCategories
+                        }
                     />
                 </View>
 
-                <Pressable style={{marginTop:30}} 
-                onPress={()=>{
-                    navigation.navigate("Map")
-                }}>
-                <Text style={[styles.textdecoration, styles.locationButton]}
-                
-                >Add Location</Text>
-            </Pressable>
-                <View style={{ marginTop: 30 }}>
-
-                    <Text style={[styles.textdecoration, styles.labels]}>Speciality of the store :</Text>
-                    <TextInput
-                        style={styles.inputs}
-                    />
-                </View>
                 <Pressable style={{ marginTop: 30}}
                     onPress={() => {
                         navigation.navigate("Map")
@@ -50,7 +68,7 @@ export default function ShopCreation({ navigation }) {
             <View style={styles.form2}>
 
                 <Pressable style={styles.addbutton} >
-                    <Text style={[styles.textdecoration, styles.addbuttonText]}>Add Shop!</Text>
+                    <Text style={[styles.textdecoration, styles.addbuttonText]} onPress={addShopInfo}>Add Shop!</Text>
                 </Pressable>
             </View>
         </View>

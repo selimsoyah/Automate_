@@ -83,10 +83,9 @@ const RootNavigator = () => {
       headerShown: false
     }}
     >
-    
+      <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name='Sign' component= {SignUp}/> 
       <Stack.Screen name='tab' component= {Tabs}/>
-      <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="AddCar" component={AddCar} />
       <Stack.Screen name="SearchShop" component={SearchShop} />
