@@ -22,7 +22,7 @@ const SignUp = ({ navigation }) => {
 
     const adduser = async () => {
         try {
-          const response = await Axios.post('http://ExpoIpAddress:3000/register', {
+          const response = await Axios.post('http://192.168.1.2:3000/register', {
             name: name,
             email: email,
             phonenumber: phonenumber,
@@ -30,7 +30,11 @@ const SignUp = ({ navigation }) => {
             mecorcar: mecorcar,
           });
           console.log(response.data);
+          if (response.data.includes('Email already exists, please choose another one')) {
+            alert('Email already exists, please choose another one');
+          }
           if (response.data.includes('All the attributes were inserted')) {
+            alert(`Your Data Has Been Stored Successfully In Our Database Welcome ${name}`)
             navigation.navigate('LogIn');
           }
         } catch (error) {
@@ -82,10 +86,7 @@ const SignUp = ({ navigation }) => {
                 buttonStyle={{ marginTop: 20, borderRadius: 10 }}
                 textStyle={{ fontSize: 20 }}
             />
-            <Text style={styles.continue}>Or Continue With</Text>
-            <Image source={require("../assets/Signgoogle.png")} style={styles.google} />
-            <Image source={require("../assets/continuefacebook.png")} style={styles.facebook} />
-            <Text style={styles.logc}>Already Have An Account ? <Pressable style={{ color: 'white' }}><Text>Log In</Text></Pressable></Text>
+            <Text style={styles.logc}>Already Have An Account ? <Pressable style={{ color: 'white' }} onPress={navigation.navigate('LogIn')}><Text>Log In</Text></Pressable></Text>
         </KeyboardAvoidingView>
 
     )
