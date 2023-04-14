@@ -7,9 +7,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
-
-    
 const ViewInfo = ({ navigation }) => {
   
   

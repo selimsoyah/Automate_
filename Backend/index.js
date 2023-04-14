@@ -8,53 +8,47 @@ app.use(cors());
 const db = mysql.createConnection({
     user: 'root',
     host :'localhost',
-    password:'0011ooiiWWAA',
-    database:'User',
+    password:'0011ooiiWWA',
+    database:'user',
     port:'3306',
 });
-app.post('/register',(req,res)=> {
-    const name = req.body.name;
-    const email = req.body.email;
-    const phonenumber = req.body.phonenumber;
-    const password = req.body.password;
-    const mecorcar = req.body.mecorcar;
-    db.query(
-        'INSERT INTO User(username,useremail,phonenumber,password,mecorcar) VALUES (?,?,?,?,?)',[name,email,phonenumber,password,mecorcar] ,(err,result) =>{
-        if(err){
-            console.log(err);
-        }else{
-            res.send("All The Attributes Were Inserted Into Our Tables !!!!");
-            console.log(res.body)
-        }
-    })
-})    
-
-
 app.post('/register', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const phonenumber = req.body.phonenumber;
     const password = req.body.password;
     const mecorcar = req.body.mecorcar;
-    
-    db.query('SELECT * FROM username WHERE email = ?', [email], (err, result) => {
+    db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, result) => {
       if (result.length > 0) {
         res.send('Email already exists, please choose another one');
       } else {
-        db.query('INSERT INTO username(username, email, phonenumber, password, mecorcar) VALUES (?, ?, ?, ?, ?)',
+        db.query('INSERT INTO user(username, useremail, phonenumber, password, mecorcar) VALUES (?, ?, ?, ?, ?)',
           [name, email, phonenumber, password, mecorcar],
           (err, result) => {
             if (err) {
               console.log(err);
               res.send('Error inserting user data');
+
             } else {
               res.send('All the attributes were inserted into our tables!');
+
             }
           }
         );
       }
     });
   });
+  app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    db.query('SELECT * FROM user WHERE useremail = ? AND password = ?', [email, password], (err, result) => {
+        if (result.length > 0) {
+            res.send('Login successful');
+        } else {
+            res.send('Invalid email or password');
+        }
+    });
+});
 app.listen(port, () => {
     console.log(`Server Is Runnning On Your Port ${port}`);
 });

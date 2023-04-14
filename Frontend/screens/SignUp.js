@@ -2,8 +2,8 @@ import { Image, Text, StyleSheet, View, KeyboardAvoidingView, TextInput, Touchab
 import React, { Component } from 'react'
 import Button from "../components/Button";
 import Axios from 'axios'
-import cors from 'cors'
-
+import LogIn from './LogIn';
+import { useState } from 'react';
 
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }, { navigation }) => {
     return (
@@ -22,19 +22,23 @@ const SignUp = ({ navigation }) => {
 
     const adduser = async () => {
         try {
-            const response = await Axios.post('http://192.168.1.245:3000/register', {
-                name: name,
-                email: email,
-                phonenumber: phonenumber,
-                password: password,
-                mecorcar:mecorcar,
-            });
-            console.log("Variables Passed Successfully !!!", response.data);
-            navigation.navigate('LogIn')
+          const response = await Axios.post('http://ExpoIpAddress:3000/register', {
+            name: name,
+            email: email,
+            phonenumber: phonenumber,
+            password: password,
+            mecorcar: mecorcar,
+          });
+          console.log(response.data);
+          if (response.data.includes('All the attributes were inserted')) {
+            navigation.navigate('LogIn');
+          }
         } catch (error) {
-            console.error(error);
+          console.error(error);
         }
-    }
+      };
+      
+      
     return (
         <KeyboardAvoidingView behavior='padding' style={{ backgroundColor: '#94A3B8', flex: 1 }}>
             <View>
@@ -74,9 +78,7 @@ const SignUp = ({ navigation }) => {
             </View>
             <CustomButton
                 title="SignUp"
-                onPress={() => {
-                    navigation.navigate('adduser')
-                }}
+                onPress={adduser}
                 buttonStyle={{ marginTop: 20, borderRadius: 10 }}
                 textStyle={{ fontSize: 20 }}
             />

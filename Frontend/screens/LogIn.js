@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet, TextInput, Button, KeyboardAvoidingView, TouchableOpacity, Image } from 'react-native'
 import React, { Component } from 'react'
 import { useState } from "react";
+import Axios from 'axios'
+import AddCar from './AddCar';
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.customButton, buttonStyle]}>
@@ -8,13 +10,24 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
         </TouchableOpacity>
     )
 }
-const LogIn = () => {
+const LogIn = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, Setpassword] = useState('');
 
-    const handleLogin = () => {
-        alert('Login Successfully !')
-    };
+    const checkuser = async () => {
+        try {
+            const response = await Axios.post('http://expoIpAddress:3000/login', {
+                email: email,
+                password: password,
+            });
+            console.log(response.data);
+            if (response.data.includes('Login successful')) {
+                navigation.navigate('AddCar');
+              }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <KeyboardAvoidingView 
@@ -42,14 +55,12 @@ const LogIn = () => {
                 />
                 <CustomButton
                     title="Log In"
-                    onPress={handleLogin}
+                    onPress={checkuser}
                     buttonStyle={{ marginTop: 30, borderRadius: 5 }}
                     textStyle={{ fontSize: 20 }}
                 />
             </View>
             <Text style={styles.continue}>Or Continue With</Text>
-            <Image source={require("../assets/Signgoogle.png")} style={styles.google} />
-            <Image source={require("../assets/continuefacebook.png")} style={styles.facebook} />
             <Text style={styles.foot1}>Dont' Have An Account ? <Text style={{ /*fontWeight: 'bold',*/ color: 'white' }}>Create Now !</Text></Text>
             <Text style={styles.foot2}>Forgot Your Password ? <Text style={{ /*fontWeight: 'bold', */color: 'white' }}>Click Here !</Text></Text>
         </KeyboardAvoidingView>
