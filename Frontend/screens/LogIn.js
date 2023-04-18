@@ -16,7 +16,7 @@ const LogIn = ({ navigation }) => {
 
     const checkuser = async () => {
         try {
-            const response = await Axios.post('http://192.168.1.2:3000/login', {
+            const response = await Axios.post('http://Ip:3000/login', {
                 email: email,
                 password: password,
             });
