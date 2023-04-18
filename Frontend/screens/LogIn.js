@@ -21,12 +21,13 @@ const LogIn = ({ navigation }) => {
                 password: password,
             });
             console.log(response.data);
-            if (response.data.includes('Invalid email or password')) {
+            if (response.data.success) {
                 alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
-            }
-            if (response.data.includes('Login successful')) {
-                alert(`Log In Successfully , Welcome ${email} To Our Application`)
+            } else {
+                alert(`Welcome ${email} To Our Application`)
                 navigation.navigate('AddCar');
+
+
             }
         } catch (error) {
             console.error(error);

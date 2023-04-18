@@ -84,8 +84,8 @@ const RootNavigator = () => {
         headerShown: false
       }}
     >
-       <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name='LogIn' component={LogIn} />
+      <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name='tab' component={Tabs} />
       <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name="Map" component={Map} />

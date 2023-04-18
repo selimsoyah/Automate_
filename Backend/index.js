@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 app.use(express.json())
 app.use(cors());
+const jwt = require('jsonwebtoken');
 const db = mysql.createConnection({
     user: 'root',
     host :'localhost',
@@ -31,7 +32,6 @@ app.post('/register', (req, res) => {
 
             } else {
               res.send('All the attributes were inserted into our tables!');
-
             }
           }
         );
@@ -43,7 +43,9 @@ app.post('/register', (req, res) => {
     const password = req.body.password;
     db.query('SELECT * FROM user WHERE useremail = ? AND password = ?', [email, password], (err, result) => {
         if (result.length > 0) {
-            res.send('Login successful');
+            const id= result[0].id;
+             const token =jwt.sign({id},"jwtSecretKey",{expiresIn:300});
+            res.json({Login:true,token,result}) 
         } else {
             res.send('Invalid email or password');
         }
