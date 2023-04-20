@@ -1,6 +1,8 @@
-import { Text, View, StyleSheet, TextInput, Button, KeyboardAvoidingView, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Button, KeyboardAvoidingView, TouchableOpacity, Image, Pressable } from 'react-native'
 import React, { Component } from 'react'
 import { useState } from "react";
+import Axios from 'axios'
+import AddCar from './AddCar';
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.customButton, buttonStyle]}>
@@ -8,16 +10,32 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
         </TouchableOpacity>
     )
 }
-const LogIn = () => {
+const LogIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, Setpassword] = useState('');
 
-    const handleLogin = () => {
-        alert('Login Successfully !')
-    };
+    const checkuser = async () => {
+        try {
+            const response = await Axios.post('http://Ip:3000/login', {
+                email: email,
+                password: password,
+            });
+            console.log(response.data);
+            if (response.data.success) {
+                alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
+            } else {
+                alert(`Welcome ${email} To Our Application`)
+                navigation.navigate('AddCar');
+
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
@@ -42,16 +60,18 @@ const LogIn = () => {
                 />
                 <CustomButton
                     title="Log In"
-                    onPress={handleLogin}
+                    onPress={checkuser}
                     buttonStyle={{ marginTop: 30, borderRadius: 5 }}
                     textStyle={{ fontSize: 20 }}
                 />
             </View>
-            <Text style={styles.continue}>Or Continue With</Text>
-            <Image source={require("../assets/Signgoogle.png")} style={styles.google} />
-            <Image source={require("../assets/continuefacebook.png")} style={styles.facebook} />
-            <Text style={styles.foot1}>Dont' Have An Account ? <Text style={{ /*fontWeight: 'bold',*/ color: 'white' }}>Create Now !</Text></Text>
-            <Text style={styles.foot2}>Forgot Your Password ? <Text style={{ /*fontWeight: 'bold', */color: 'white' }}>Click Here !</Text></Text>
+            <Pressable
+                title="Already have an account?Sign up"
+                onPress={() => navigation.navigate('Sign')}
+                color="#FFFFFF"
+                style={{ textDecorationLine: 'none' }}
+            /> 
+            <Text style={styles.foot2}>Forgot Your Password ? <Text style={{color: 'white' }}>Click Here !</Text></Text>
         </KeyboardAvoidingView>
     )
 }
@@ -116,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'#94A3B8'
+        backgroundColor: '#94A3B8'
     },
     inputpass: {
         width: 300,
