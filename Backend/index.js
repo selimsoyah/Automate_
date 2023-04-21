@@ -1,17 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
 const mysql = require('mysql');
 const cors = require('cors');
 app.use(express.json())
 app.use(cors());
+const serverport = process.env.serverport;
 const jwt = require('jsonwebtoken');
 const db = mysql.createConnection({
-    user: 'root',
-    host :'localhost',
-    password:'0011ooiiWWAA',
-    database:'user',
-    port:'3306',
+    user: process.env.user,
+    host :process.env.host,
+    password:process.env.password, 
+    database:process.env.database,
+    port:process.env.port,
 });
 app.post('/register', (req, res) => {
     const name = req.body.name;
@@ -76,8 +77,8 @@ app.post('/location', (req,res)=>{
         }
      })
 })
-
-app.listen(port, () => {
-    console.log(`Server Is Runnning On Your Port ${port}`);
+app.listen(serverport, () => {
+    console.log(`Server Is Runnning On Your Port ${serverport}`); 
+    
 });
 

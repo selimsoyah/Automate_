@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import Axios from 'axios'
 import LogIn from './LogIn';
 import { useState } from 'react';
+const IP = process.env.Ipaddress
 
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }, { navigation }) => {
     return (
@@ -12,81 +13,93 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }, { navigation }
         </TouchableOpacity>
     )
 }
+/*
+  
+            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}>
+                <Text style={{ color: "white", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 15, top:360, textAlign:'center' }}>Already Have An Account ?</Text>
+            </TouchableOpacity>
+
+                />*/
 const SignUp = ({ navigation }) => {
 
     const [name, Setusername] = useState("")
     const [email, Setemail] = useState("");
     const [phonenumber, SetphoneNumber] = useState("");
     const [password, Setpassword] = useState("");
-    const [mecorcar, Setmecorcar]=useState("")
-
+    const [mecorcar, Setmecorcar] = useState("");
     const adduser = async () => {
         try {
-          const response = await Axios.post('http://Ip:3000/register', {
-            name: name,
-            email: email,
-            phonenumber: phonenumber,
-            password: password,
-            mecorcar: mecorcar,
-          });
-          console.log(response.data);
-          if (response.data.includes('Email already exists, please choose another one')) {
-            alert('Email already exists, please choose another one');
-          }
-          if (response.data.includes('All the attributes were inserted')) {
-            alert(`Your Data Has Been Stored Successfully In Our Database Welcome ${name}`)
-            navigation.navigate('LogIn');
-          }
+            const response = await Axios.post(`http://${IP}:3000/register`, {
+                name: name,
+                email: email,
+                phonenumber: phonenumber,
+                password: password,
+                mecorcar: mecorcar,
+            });
+            console.log(response.data);
+            if (response.data.includes('Email already exists, please choose another one')) {
+                alert('Email already exists, please choose another one');
+            }
+            if (response.data.includes('All the attributes were inserted')) {
+                alert(`Your Data Has Been Stored Successfully In Our Database Welcome ${name}`)
+                navigation.navigate('LogIn');
+            }
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
-      
-      
+    };
+
+
     return (
-        <KeyboardAvoidingView behavior='padding' style={{ backgroundColor: '#94A3B8', flex: 1 }}>
+        <KeyboardAvoidingView behavior='padding' style={{ backgroundColor: '#94A3B8', flex: 1, alignItems: 'center', textAlign: 'center' }}>
             <View>
                 <Text style={styles.mainword}>Sign Up</Text>
-                <Text style={styles.labelname}>Username:</Text>
+                <Text style={styles.labelname}>Username :</Text>
                 <TextInput
                     style={styles.inputname}
                     value={name}
                     onChangeText={Setusername}
+                    autoCapitalize='sentences'
+                    keyboardType='default'
                 />
-                <Text style={styles.labelemail}>Email:</Text>
+                <Text style={styles.labelemail}>Email :</Text>
                 <TextInput
                     style={styles.inputemail}
                     value={email}
                     onChangeText={Setemail}
+                    autoCapitalize='sentences'
+                    keyboardType='email-address'
                 />
-                <Text style={styles.labelphone}>Phone Number:</Text>
-                <TextInput style={styles.inputphone}
-                value={phonenumber}
-                onChangeText={SetphoneNumber}
-                />
-                <Text style={styles.labelpass}>Enter Your Password</Text>
+                <Text style={styles.labelphone}>Phone Number :</Text>
                 <TextInput
-                    style={styles.inputpass} 
+                    style={styles.inputphone}
+                    keyboardType='phone-pad'
+                    value={phonenumber}
+                    onChangeText={SetphoneNumber}
+
+                />
+                <Text style={styles.labelpass}>Password : </Text>
+                <TextInput
+                    style={styles.inputpass}
                     value={password}
                     onChangeText={Setpassword}
                     secureTextEntry={true}
-                    />
-                <Text style={styles.labelmec}>Choose To Sign Up as <Text style={{ color: 'black' }}>Mechanical</Text>Or A <Text style={{ color: 'black' }}>Car Owner</Text></Text>
+                    keyboardType='sentences'
+                />
+               <Text style={styles.labelmec}>Sign Up As a <Text style={{ textDecorationLine: 'underline' }}>  Mechanical </Text><Text style={{ textDecorationLine: 'underline' }}> or CarOwner</Text></Text>
                 <TextInput
                     style={styles.inputmec}
                     value={mecorcar}
-                    onChangeText={Setmecorcar} 
-
-                    />
-                    
+                    onChangeText={Setmecorcar}
+                    autoCapitalize='sentences'
+                />
+                <CustomButton
+                    title="SignUp"
+                    onPress={adduser}
+                    buttonStyle={{ marginTop: 70, borderRadius: 10 }}
+                    textStyle={{ fontSize: 20 }}
+                />
             </View>
-            <CustomButton
-                title="SignUp"
-                onPress={adduser}
-                buttonStyle={{ marginTop: 20, borderRadius: 10 }}
-                textStyle={{ fontSize: 20 }}
-            />
-            <Text style={styles.logc}>Already Have An Account ? <Pressable style={{ color: 'white' }} onPress={navigation.navigate('LogIn')}><Text>Log In</Text></Pressable></Text>
         </KeyboardAvoidingView>
 
     )
@@ -96,12 +109,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 160,
         height: 50,
-        left: 140,
-        top: 130,
+        marginTop:65,
+        marginLeft:70,
         fontFamily: 'Roboto',
         fontStyle: 'normal',
-        //fontWeight:400,
-        fontSize: 32,
+        fontSize: 35,
         lineHeight: 40,
         color: '#FFFFFF',
     },
@@ -117,34 +129,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         lineHeight: 18,
     },
-    google: {
-        marginTop: 13,
-        resizeMode: 'contain',
-        borderWidth: 2,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        padding: 20,
-        position: 'absolute',
-        width: 120,
-        height: 40,
-        left: 30,
-        top: 710,
-    },
-    facebook: {
-        marginTop: 13,
-        resizeMode: 'contain',
-        borderWidth: 2,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        padding: 20,
-        position: 'absolute',
-        width: 120,
-        height: 37,
-        left: 250,
-        top: 710,
-    },
     continue: {
         position: 'absolute',
         width: 230,
@@ -153,17 +137,14 @@ const styles = StyleSheet.create({
         top: 700,
         lineHeight: 16,
         fontSize: 16,
-        // fontWeight: 400,
+        //fontWeight: 400,
         fontFamily: 'Roboto',
         fontStyle: 'normal',
     },
     customButton: {
         backgroundColor: '#334155',
+        width: 270,
         height: 40,
-        width: 298,
-        height: 40,
-        left: 46,
-        top: 510,
     },
     customButtonText: {
         color: '#fff',
@@ -171,96 +152,95 @@ const styles = StyleSheet.create({
     },
     inputmec: {
         position: 'absolute',
-        width: 298,
+        width: 270,
         height: 130,
-        left: 47,
-        top: 479,
+        paddingTop: 110,
+        marginTop: 430,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },
     labelmec: {
         fontFamily: 'Roboto',
-        //fontWeight: 400,
-        width: 350,
+        fontWeight: 'bold',
+        width: 250,
+        marginTop: 60,
         height: 20,
-        left: 47,
-        top: 479,
         fontSize: 12,
         color: '#FFFFFF',
     },
     labelpass: {
         fontFamily: 'Roboto',
-        //fontWeight: 400,
+        fontWeight: 'bold',
         width: 200,
         height: 20,
-        left: 47,
-        top: 404,
         fontSize: 12,
+        marginTop: 59,
         color: '#FFFFFF',
     },
     inputpass: {
         position: 'absolute',
-        width: 298,
+        width: 270,
         height: 100,
-        left: 47,
-        top: 404,
+        paddingTop: 78,
+        marginTop: 370,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },
     inputphone: {
         position: 'absolute',
-        width: 298,
+        width: 270,
         height: 80,
-        left: 47,
-        top: 350,
+        marginTop: 320,
+        paddingTop: 50,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },
     labelphone: {
         fontFamily: 'Roboto',
-        //fontWeight: 400,
+        fontWeight: 'bold',
         width: 110,
         height: 20,
-        left: 47,
-        top: 350,
+        marginTop: 68,
         fontSize: 12,
         color: '#FFFFFF',
     },
     inputemail: {
         position: 'absolute',
-        width: 298,
+        width: 270,
         height: 65,
-        left: 47,
-        top: 275,
+        marginRight: 160,
+        marginTop: 250,
+        marginBottom: 50,
+        paddingTop: 37,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },
     labelemail: {
         fontFamily: 'Roboto',
-        // fontWeight: 400,
+        fontWeight: 'bold',
+        marginRight: 160,
+        marginTop: 68,
         width: 100,
         height: 20,
-        left: 47,
-        top: 275,
         fontSize: 12,
         color: '#FFFFFF',
     },
     labelname: {
         fontFamily: 'Roboto',
-        //fontWeight: 400,
+        fontWeight: 'bold',
+        marginRight: 160,
+        marginTop: 170,
         width: 100,
         height: 20,
-        left: 47,
-        top: 210,
         fontSize: 12,
         color: '#FFFFFF',
     },
     inputname: {
         position: 'absolute',
-        width: 298,
-        height: 50,
-        left: 47,
-        top: 210,
+        marginRight: 160,
+        marginTop: 200,
+        width: 270,
+        height: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },

@@ -1,9 +1,9 @@
 import { Text, View, StyleSheet, TextInput, Button, KeyboardAvoidingView, TouchableOpacity, Image, Pressable } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { useState } from "react";
 import Axios from 'axios'
-import Signup from './SignUp'
 import AddCar from './AddCar';
+const IP = process.env.Ipaddress
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.customButton, buttonStyle]}>
@@ -11,23 +11,13 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
         </TouchableOpacity>
     )
 }
-const CustomButton1 = ({ title, onPress, buttonStyle, textStyle }) => {
-    return (
-        <TouchableOpacity style={[styles.customButton, buttonStyle]}>
-            <Text style={[styles.customButtonText, textStyle]}>{title}</Text>
-        </TouchableOpacity>
-    )
-}
 const LogIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
-    const [password, Setpassword] = useState('');
-    const nav = () =>{
-        navigation.navigate("Sign");
-    }
+    const [password, Setpassword] = useState(''); 
 
     const checkuser = async () => {
         try {
-            const response = await Axios.post('http://Ip:3000/login', {
+            const response = await Axios.post(`http://${IP}:3000/login`, {
                 email: email,
                 password: password,
             });
@@ -35,16 +25,13 @@ const LogIn = ({ navigation }) => {
             if (response.data.success) {
                 alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
             } else {
-                alert(`Welcome ${email} To Our Application`)
+                alert(`LogIn Successfully !`)
                 navigation.navigate('AddCar');
-
-
             }
         } catch (error) {
             console.error(error);
         }
     }
-
     return (
         <KeyboardAvoidingView
             style={styles.container}
@@ -76,12 +63,10 @@ const LogIn = ({ navigation }) => {
                     textStyle={{ fontSize: 20 }}
                 />
             </View>
-            <CustomButton1
-                buttonStyle={{ marginTop: 12 , height:20 ,borderRadius:3,width:"50%",top:90}}
-                textStyle={{ fontSize: 10 }}
-                title="Aleady Have An Account ?"
-                onPress={nav}
-            />
+            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}>
+                <Text style={{ color: "white", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 15 }}>Don't Have An Account ?</Text>
+            </TouchableOpacity>
+
         </KeyboardAvoidingView>
     )
 }
