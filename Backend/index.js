@@ -77,8 +77,8 @@ app.post('/location', (req,res)=>{
         }
      })
 })
+
 app.listen(serverport, () => {
     console.log(`Server Is Runnning On Your Port ${serverport}`); 
-    
 });
 

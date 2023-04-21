@@ -29,7 +29,7 @@ const SignUp = ({ navigation }) => {
     const [mecorcar, Setmecorcar] = useState("");
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http://${IP}:3000/register`, {
+            const response = await Axios.post('http://192.168.1.4:3000/register', {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
