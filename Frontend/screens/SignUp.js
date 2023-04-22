@@ -1,35 +1,31 @@
 import { Image, Text, StyleSheet, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Pressable } from 'react-native'
 import React, { Component } from 'react'
+import { RadioButton } from 'react-native-paper';
 import Button from "../components/Button";
 import Axios from 'axios'
 import LogIn from './LogIn';
 import { useState } from 'react';
 const IP = process.env.Ipaddress
-const serverport =process.env.serverport;
-const CustomButton = ({ title, onPress, buttonStyle, textStyle }, { navigation }) => {
+const serverport = process.env.serverport;
+const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }, { navigation }) => {
     return (
-        <TouchableOpacity onPress={(onPress)} style={[styles.customButton, buttonStyle]}>
+        <TouchableOpacity onPress={(onPress)} style={[styles.customButton, buttonStyle]} disabled={disabled}>
             <Text style={[styles.customButtonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
     )
 }
-/*
-  
-            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}>
-                <Text style={{ color: "white", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 15, top:360, textAlign:'center' }}>Already Have An Account ?</Text>
-            </TouchableOpacity>
-
-                />*/
+alert("The button will be disabled if you leave one of the inputs empty ! ");
 const SignUp = ({ navigation }) => {
-
     const [name, Setusername] = useState("")
     const [email, Setemail] = useState("");
     const [phonenumber, SetphoneNumber] = useState("");
     const [password, Setpassword] = useState("");
     const [mecorcar, Setmecorcar] = useState("");
+    const isDisabled =
+        name.trim() === "" || email.trim() === "" || phonenumber.trim() === "" || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http://${IP}:serverport/register`, {
+            const response = await Axios.post(`http://192.168.1.4:3000/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
@@ -61,6 +57,7 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setusername}
                     autoCapitalize='sentences'
                     keyboardType='default'
+                    required
                 />
                 <Text style={styles.labelemail}>Email :</Text>
                 <TextInput
@@ -69,6 +66,7 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setemail}
                     autoCapitalize='sentences'
                     keyboardType='email-address'
+                    required
                 />
                 <Text style={styles.labelphone}>Phone Number :</Text>
                 <TextInput
@@ -76,6 +74,7 @@ const SignUp = ({ navigation }) => {
                     keyboardType='phone-pad'
                     value={phonenumber}
                     onChangeText={SetphoneNumber}
+                    required
 
                 />
                 <Text style={styles.labelpass}>Password : </Text>
@@ -85,19 +84,25 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setpassword}
                     secureTextEntry={true}
                     keyboardType='sentences'
+                    required
                 />
-               <Text style={styles.labelmec}>Sign Up As a <Text style={{ textDecorationLine: 'underline' }}>  Mechanical </Text><Text style={{ textDecorationLine: 'underline' }}> or CarOwner</Text></Text>
-                <TextInput
-                    style={styles.inputmec}
-                    value={mecorcar}
-                    onChangeText={Setmecorcar}
-                    autoCapitalize='sentences'
-                />
+                <Text style={styles.labelmec}>Sign Up As a</Text>
+                <RadioButton.Group onValueChange={newValue => Setmecorcar(newValue)} value={mecorcar}>
+                    <View style={styles.radioContainer}>
+                        <Text style={styles.label}>Mechanical</Text>
+                        <RadioButton.Android value="Mechanical" color="white" uncheckedColor="#ccc" />
+                    </View>
+                    <View style={styles.radioContainer}>
+                        <Text style={styles.label}>Car Owner</Text>
+                        <RadioButton.Android value="CarOwner" color="white" uncheckedColor="#ccc" />
+                    </View>
+                </RadioButton.Group>
                 <CustomButton
                     title="SignUp"
                     onPress={adduser}
                     buttonStyle={{ marginTop: 70, borderRadius: 10 }}
                     textStyle={{ fontSize: 20 }}
+                    disabled={isDisabled}
                 />
             </View>
         </KeyboardAvoidingView>
@@ -105,12 +110,20 @@ const SignUp = ({ navigation }) => {
     )
 }
 const styles = StyleSheet.create({
+    radioButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 20
+      },
+      radioButtonLabel: {
+        marginLeft: 10
+      },
     mainword: {
         position: 'absolute',
         width: 160,
         height: 50,
-        marginTop:65,
-        marginLeft:70,
+        marginTop: 65,
+        marginLeft: 70,
         fontFamily: 'Roboto',
         fontStyle: 'normal',
         fontSize: 35,
@@ -155,16 +168,16 @@ const styles = StyleSheet.create({
         width: 270,
         height: 130,
         paddingTop: 110,
-        marginTop: 430,
+        marginTop: 450,
         borderBottomWidth: 1,
-        borderBottomColor: '#FFFFFF',
+        borderBottomColor: 'black',
     },
     labelmec: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
         width: 250,
         marginTop: 60,
-        height: 20,
+        height: 25,
         fontSize: 12,
         color: '#FFFFFF',
     },

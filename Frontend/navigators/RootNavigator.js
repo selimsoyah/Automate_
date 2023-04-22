@@ -16,6 +16,7 @@ import SearchMechanicsProfile from '../screens/SearchMechanicsProfile';
 import OTPScreen1 from "../screens/OtpScreen1";
 import { StyleSheet } from 'react-native';
 import CustomTabBarButton from "../components/CustomTabBarButton";
+import HomePage from "../screens/HomePage";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -85,6 +86,7 @@ const RootNavigator = () => {
       }}
     >
       <Stack.Screen name='Sign' component={SignUp} />
+      <Stack.Screen name="Home" component={HomePage} />
       <Stack.Screen name='LogIn' component={LogIn} />
       <Stack.Screen name='tab' component={Tabs} />
       <Stack.Screen name="Shop" component={ShopCreation} />

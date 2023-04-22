@@ -21,7 +21,7 @@ app.post('/register', (req, res) => {
     const password = req.body.password;
     const mecorcar = req.body.mecorcar;
     db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, result) => {
-      if (result.length > 0) {
+      if (result && result.length > 0) {
         res.send('Email already exists, please choose another one');
       } else {
         db.query('INSERT INTO user(username, useremail, phonenumber, password, mecorcar) VALUES (?, ?, ?, ?, ?)',
@@ -44,7 +44,7 @@ app.post('/register', (req, res) => {
     const password = req.body.password;
     db.query('SELECT * FROM user WHERE useremail = ? AND password = ?', [email, password], (err, result) => {
         if (result.length > 0) {
-            const id= result[0].id;
+             const id= result[0].id;
              const token =jwt.sign({id},"jwtSecretKey",{expiresIn:300});
             res.json({Login:true,token,result}) 
         } else {

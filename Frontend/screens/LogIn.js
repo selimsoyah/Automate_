@@ -3,6 +3,7 @@ import React, { Component, useEffect } from 'react'
 import { useState } from "react";
 import Axios from 'axios'
 import AddCar from './AddCar';
+import HomePage from './HomePage';
 const serverport =process.env.serverport;
 const IP = process.env.Ipaddress
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
@@ -11,23 +12,23 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
             <Text style={[styles.customButtonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
     )
-}
+};
 const LogIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, Setpassword] = useState(''); 
-
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://${IP}:3000/login`, {
+            const response = await Axios.post(`http://192.168.1.4:3000/login`, {
                 email: email,
                 password: password,
             });
             console.log(response.data);
-            if (response.data.success) {
-                alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
-            } else {
+            if (response.data.Login) {
                 alert(`LogIn Successfully !`)
-                navigation.navigate('AddCar');
+                navigation.navigate('Home');
+            } else {
+                alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
+    
             }
         } catch (error) {
             console.error(error);
@@ -36,8 +37,7 @@ const LogIn = ({ navigation }) => {
     return (
         <KeyboardAvoidingView
             style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Text style={styles.mainword}>Login</Text>
             <View>
                 <Text style={styles.labelemail}>Email</Text>
