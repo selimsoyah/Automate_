@@ -5,7 +5,7 @@ import Axios from 'axios'
 import LogIn from './LogIn';
 import { useState } from 'react';
 const IP = process.env.Ipaddress
-
+const serverport =process.env.serverport;
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }, { navigation }) => {
     return (
         <TouchableOpacity onPress={(onPress)} style={[styles.customButton, buttonStyle]}>
@@ -29,7 +29,7 @@ const SignUp = ({ navigation }) => {
     const [mecorcar, Setmecorcar] = useState("");
     const adduser = async () => {
         try {
-            const response = await Axios.post('http://192.168.1.4:3000/register', {
+            const response = await Axios.post(`http://${IP}:serverport/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,

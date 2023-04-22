@@ -3,6 +3,7 @@ import React, { Component, useEffect } from 'react'
 import { useState } from "react";
 import Axios from 'axios'
 import AddCar from './AddCar';
+const serverport =process.env.serverport;
 const IP = process.env.Ipaddress
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
@@ -17,7 +18,7 @@ const LogIn = ({ navigation }) => {
 
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://192.168.1.4:3000/login`, {
+            const response = await Axios.post(`http://${IP}:3000/login`, {
                 email: email,
                 password: password,
             });
