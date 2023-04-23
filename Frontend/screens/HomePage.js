@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 const HomePage = () => {
   const checkauth = () => {
-    Axios.get("http://192.168.1.4:3000/auth", {
+    Axios.get("http://IpAddress:ServerPort/auth", {
       headers: {
         "Access Token": AsyncStorage.getItem('token')
       }
