@@ -2,9 +2,11 @@ import { Text, View, StyleSheet, TextInput, Button, KeyboardAvoidingView, Toucha
 import React, { Component, useEffect } from 'react'
 import { useState } from "react";
 import Axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import AddCar from './AddCar';
 import HomePage from './HomePage';
-const serverport =process.env.serverport;
+const serverport = process.env.serverport;
 const IP = process.env.Ipaddress
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
@@ -15,7 +17,8 @@ const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
 };
 const LogIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
-    const [password, Setpassword] = useState(''); 
+    const [password, Setpassword] = useState('');
+    const [Status, Setstatus] = useState(false);
     const checkuser = async () => {
         try {
             const response = await Axios.post(`http://192.168.1.4:3000/login`, {
@@ -25,15 +28,42 @@ const LogIn = ({ navigation }) => {
             console.log(response.data);
             if (response.data.Login) {
                 alert(`LogIn Successfully !`)
-                navigation.navigate('Home');
+                //navigation.navigate('Home');
+                Setstatus(true);
+                console.log(Status);
+                AsyncStorage.setItem("token", response.data.token);
             } else {
                 alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
-    
+                Setstatus(false);
+                console.log(Status);
             }
         } catch (error) {
             console.error(error);
         }
     }
+    const checkauth = () => {
+        AsyncStorage.getItem("token")
+            .then((token) => {
+                if (token) {
+                    Axios.get("http://192.168.1.4:3000/auth", {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                        .then((response) => {
+                            console.log(response);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                } else {
+                    console.log("Token not found");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <KeyboardAvoidingView
             style={styles.container}
@@ -71,7 +101,9 @@ const LogIn = ({ navigation }) => {
         </KeyboardAvoidingView>
     )
 }
-
+                /* <View>
+                {Status && <TouchableOpacity onPress={checkauth}><Text>Check Auth</Text></TouchableOpacity>}
+                 </View>*/
 const styles = StyleSheet.create({
     mainword: {
         marginBottom: 20,
