@@ -4,6 +4,7 @@ Quick Reminder :
     BTW make sure to create a file .env in your backend folder , just for security !!!
     no need to add it in the frontend file it may cause some problems just type it manually !!
     The content of .env should be as followed :
+
     {
         serverport : 'your port',
         user:'your db user',
