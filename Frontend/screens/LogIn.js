@@ -3,9 +3,7 @@ import React, { Component, useEffect } from 'react'
 import { useState } from "react";
 import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import AddCar from './AddCar';
-import HomePage from './HomePage';
 const serverport = process.env.serverport;
 const IP = process.env.Ipaddress
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
@@ -28,7 +26,6 @@ const LogIn = ({ navigation }) => {
             console.log(response.data);
             if (response.data.Login) {
                 alert(`LogIn Successfully !`)
-                //navigation.navigate('Home');
                 Setstatus(true);
                 console.log(Status);
                 AsyncStorage.setItem("token", response.data.token);
