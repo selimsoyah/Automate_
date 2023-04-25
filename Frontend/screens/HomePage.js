@@ -1,9 +1,12 @@
 import { Text, StyleSheet, View ,TouchableOpacity} from 'react-native'
 import React, { Component } from 'react'
-
+import { useState } from 'react';
+import SignUp from './SignUp';
 const HomePage = () => {
+  const [listuser, setListuser] = useState([]);
+
   const checkauth = () => {
-    Axios.get("http://192.168.1.4:3000/auth", {
+    Axios.get("http://ip:serverport/auth", {
       headers: {
         "Access Token": AsyncStorage.getItem('token')
       }
@@ -17,9 +20,7 @@ const HomePage = () => {
   }
     return (
       <View style={styles.container}>
-       <View>
-               <TouchableOpacity onPress={checkauth}><Text>Check Auth</Text></TouchableOpacity>
-            </View>
+          <SignUp listuser={listuser}/>
       </View>
     )
 }

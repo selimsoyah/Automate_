@@ -21,7 +21,7 @@ const LogIn = ({ navigation }) => {
     const [Status, Setstatus] = useState(false);
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://192.168.1.4:3000/login`, {
+            const response = await Axios.post(`http://ip:serverport/login`, {
                 email: email,
                 password: password,
             });
@@ -45,13 +45,13 @@ const LogIn = ({ navigation }) => {
         AsyncStorage.getItem("token")
             .then((token) => {
                 if (token) {
-                    Axios.get("http://192.168.1.4:3000/auth", {
+                    Axios.get("Ip:serverport/auth", {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     })
                         .then((response) => {
-                            console.log(response);
+                            console.log(`Hello Mr/Mrs Your Login Is Done Successfully ! This Is Your Token : => ${token}`);
                         })
                         .catch((error) => {
                             console.log(error);
@@ -94,16 +94,16 @@ const LogIn = ({ navigation }) => {
                     textStyle={{ fontSize: 20 }}
                 />
             </View>
-            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}>
+            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}onPress={navigation.navigate("LogIn")}>
                 <Text style={{ color: "white", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 15 }}>Don't Have An Account ?</Text>
             </TouchableOpacity>
-
+            <View>
+                {Status && <TouchableOpacity onPress={checkauth}><Text>Check Auth</Text></TouchableOpacity>}
+                 </View>
         </KeyboardAvoidingView>
     )
 }
-                /* <View>
-                {Status && <TouchableOpacity onPress={checkauth}><Text>Check Auth</Text></TouchableOpacity>}
-                 </View>*/
+               
 const styles = StyleSheet.create({
     mainword: {
         marginBottom: 20,

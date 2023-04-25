@@ -6,26 +6,49 @@ import Axios from 'axios'
 import LogIn from './LogIn';
 import { useState } from 'react';
 const IP = process.env.Ipaddress
+/*
+  {userlist.map((val, key) => {
+                    const comp = () => {
+                        return (
+                            <View>
+                                <Text>{val.username}</Text>
+                                <Text>{val.useremail}</Text>
+                                <Text>{val.password}</Text>
+                                <Text>{val.phonenumber}</Text>
+                                <Text>{val.mecorcar}</Text>
+                            </View>
+                        )
+                    }
+                })}*/ 
 const serverport = process.env.serverport;
 const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }, { navigation }) => {
     return (
-        <TouchableOpacity onPress={(onPress)} style={[styles.customButton, buttonStyle]} disabled={disabled}>
+        <TouchableOpacity
+            onPress={onPress}
+            style={[
+                styles.customButton,
+                buttonStyle,
+                { backgroundColor: disabled ? "#cccccc" : "#334155" }
+            ]}
+            disabled={disabled}
+        >
             <Text style={[styles.customButtonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
     )
 }
-alert("The button will be disabled if you leave one of the inputs empty ! ");
 const SignUp = ({ navigation }) => {
     const [name, Setusername] = useState("")
     const [email, Setemail] = useState("");
     const [phonenumber, SetphoneNumber] = useState("");
     const [password, Setpassword] = useState("");
     const [mecorcar, Setmecorcar] = useState("");
+    const [user, Setuser] = useState(false)
+    const [userlist, Setuserlist] = useState([])
     const isDisabled =
         name.trim() === "" || email.trim() === "" || phonenumber.trim() === "" || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http://192.168.1.4:3000/register`, {
+            const response = await Axios.post(`http://ip:serverport/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
@@ -38,6 +61,8 @@ const SignUp = ({ navigation }) => {
             }
             if (response.data.includes('All the attributes were inserted')) {
                 alert(`Your Data Has Been Stored Successfully In Our Database Welcome ${name}`)
+                Setuser(true)
+                console.log(user)
                 navigation.navigate('LogIn');
             }
         } catch (error) {
@@ -104,9 +129,19 @@ const SignUp = ({ navigation }) => {
                     textStyle={{ fontSize: 20 }}
                     disabled={isDisabled}
                 />
+                <TouchableOpacity
+                    style={{ marginTop: 30, paddingBottom: 10, alignItems: 'center' }} onPress={navigation.navigate('Sign')} title="Already Have An Account ?">
+                    <Text
+                        style={{ color: 'white', textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 15, }}> Don't Have An Account ?
+                    </Text>
+                    {Setuser && <TouchableOpacity onPress={() => {
+                        navigation.navigate("Home");
+                    }} />}
+                </TouchableOpacity>
+              
+
             </View>
         </KeyboardAvoidingView>
-
     )
 }
 const styles = StyleSheet.create({
@@ -114,10 +149,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginRight: 20
-      },
-      radioButtonLabel: {
+    },
+    radioButtonLabel: {
         marginLeft: 10
-      },
+    },
     mainword: {
         position: 'absolute',
         width: 160,

@@ -30,7 +30,6 @@ app.post('/register', (req, res) => {
           if (err) {
             console.log(err);
             res.send('Error inserting user data');
-
           } else {
             res.send('All the attributes were inserted into our tables!');
           }
@@ -72,7 +71,16 @@ app.post('/login', (req, res) => {
     }
   });
 });
-
+app.post('/Schedule', (req, res) => {
+    const user_id = req.body.user_id 
+      const date = req.body.date  
+       const Timer = req.body.Timer   
+       const Note = req.body.note  
+         db.query("INSERT INTO user (date, Timer, Note) VALUES (?,?,?) WHERE user_id = ?", [date, Timer, Note], (err, result) => { 
+          if (err) { console.log(err) } 
+          else { res.send('Great Success') } 
+        });
+         })
 
 
 // const db = mysql.createConnection ({
@@ -97,8 +105,6 @@ app.post('/location', (req, res) => {
       }
     });
 })
-
 app.listen(serverport, () => {
   console.log(`Server Is Runnning On Your Port ${serverport}`);
 });
-

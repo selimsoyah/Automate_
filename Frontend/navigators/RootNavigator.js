@@ -44,8 +44,6 @@ const Tabs = () => {
           else if (route.name === 'ViewInfo') {
             iconName = focused ? 'information-circle' : 'information-circle-outline';
           }
-
-          // You can return any component that you like here!
           return <Ionicons name={iconName} size={22} color={color} />;
         },
 
@@ -81,12 +79,9 @@ const Tabs = () => {
 const RootNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
-      <Stack.Screen name='LogIn' component={LogIn} />
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Sign' component={SignUp} />
+      <Stack.Screen name='LogIn' component={LogIn} />
       <Stack.Screen name="Home" component={HomePage} />
       <Stack.Screen name='tab' component={Tabs} />
       <Stack.Screen name="Shop" component={ShopCreation} />
