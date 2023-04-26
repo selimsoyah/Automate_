@@ -26,7 +26,7 @@ export default function ShopCreation({ navigation , route }) {
             categories:categories
         }
             try{
-                const result = await Axios.post("http://192.168.1.113:3000/location",shopData)
+                const result = await Axios.post("http://Ipaddress:Serverport/location",shopData)
                 console.log('data added successfully', result.data);
             }catch (err){
                 console.log(err)

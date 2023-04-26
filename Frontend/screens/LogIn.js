@@ -19,7 +19,7 @@ const LogIn = ({ navigation }) => {
     const [Status, Setstatus] = useState(false);
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://ip:serverport/login`, {
+            const response = await Axios.post(`http://Ipaddress:Serverport/login`, {
                 email: email,
                 password: password,
             });
@@ -29,6 +29,7 @@ const LogIn = ({ navigation }) => {
                 Setstatus(true);
                 console.log(Status);
                 AsyncStorage.setItem("token", response.data.token);
+                navigation.navigate("AddCars");
             } else {
                 alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
                 Setstatus(false);
@@ -42,7 +43,7 @@ const LogIn = ({ navigation }) => {
         AsyncStorage.getItem("token")
             .then((token) => {
                 if (token) {
-                    Axios.get("Ip:serverport/auth", {
+                    Axios.get("http://Ipaddress:Serverport/auth", {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },

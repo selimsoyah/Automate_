@@ -1,7 +1,38 @@
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-export default function AddCar({navigation}) {
+import {useState} from 'react';
+import Axios from 'axios';
+const AddCar = ({navigation}) => {
+  const [Brand,SetBrand]=useState("");
+  const [Type,SetType]=useState("");
+  const [Kilo,Setkilo]=useState("");
+  const [Age,Setage]=useState(0);
+  const [Insurance,Setinsurance]=useState("");
+  const [Empty,Setempty]=useState("");
+  const [Visit,Setvisit]=useState("");
+  const addcar = async () => {
+    try {
+        const response = await Axios.post(`http://Ipaddress:Serverport/addcar`, {
+           Brand:Brand,
+           Type:Type,
+           Kilo:Kilo,
+           Age:Age,
+           Insurance:Insurance,
+           Empty:Empty,
+           Visit:Visit,
+        });
+        console.log(response.data);
+        if (response.data.includes('All Attributes Were Inserted Into The Table Car')) {
+            alert('Your Car Has Been Registered !!');
+            navigation.navigate("tab");
+        }
+        if (response.data.includes('Error Occured While Adding !')) {
+            alert(`Something Went Wrong !!`)
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Add Your Car</Text>
@@ -9,51 +40,55 @@ export default function AddCar({navigation}) {
         placeholder='Brand'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Brand}
+        onChangeText={SetBrand}/>
       <TextInput
         placeholder='Type'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Type}
+        onChangeText={SetType}/>
       <TextInput
         placeholder='Kilometreage'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Kilo}
+        onChangeText={Setkilo}/>
       <TextInput
         placeholder='Car Age'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Age}
+        onChangeText={Setage}/>
       <TextInput
         placeholder='Insurance Date'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Insurance}
+        onChangeText={Setinsurance}/>
       <TextInput
         placeholder='Car Emptying Date'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
+        value={Empty}
+        onChangeText={Setempty}/>
       <TextInput
         placeholder='Technical Visit'
         placeholderTextColor='#94A3B8'
         style={styles.inputStyle}
-      />
-      <Pressable style={styles.button} 
-        onPress={()=>{
-          navigation.navigate('tab')
-        }}
-      >
+        value={Visit}
+        onChangeText={Setvisit}
+        
+        />
+      <Pressable style={styles.button} onPress={addcar}>
         <Text style={{ textAlign: 'center', color: 'white', paddingTop: 10 }}>Add Car</Text>
       </Pressable>
       <View style={styles.skipSection}>
         <Text style={{ textAlign: 'center', color: 'white' }}>Already Have a Car ?</Text>
-        <Pressable style={styles.skipButton}>
+        <TouchableOpacity style={styles.skipButton}>
           <Text style={{ textAlign: 'center', color: 'white', paddingTop: 5 }}>Skip</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
-
     </ScrollView>
   )
 }
@@ -109,3 +144,4 @@ const styles = StyleSheet.create({
   }
 
 })
+export default AddCar;

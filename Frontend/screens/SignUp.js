@@ -19,7 +19,7 @@ const IP = process.env.Ipaddress
                             </View>
                         )
                     }
-                })}*/ 
+                })}*/
 const serverport = process.env.serverport;
 const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }, { navigation }) => {
     return (
@@ -45,10 +45,10 @@ const SignUp = ({ navigation }) => {
     const [user, Setuser] = useState(false)
     const [userlist, Setuserlist] = useState([])
     const isDisabled =
-        name.trim() === "" || email.trim() === "" || phonenumber.trim() === "" || password.trim() === "";
+        name.trim() === "" || email.trim() === "" || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http://ip:serverport/register`, {
+            const response = await Axios.post(`http://Ipaddress:Serverport/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
@@ -82,8 +82,15 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setusername}
                     autoCapitalize='sentences'
                     keyboardType='default'
-                    required
+                    required={true}
                 />
+                <View
+                    style={[
+                        styles.boxcheckname,
+                        { backgroundColor: name === "" ? "red" : "green" }
+                    ]}
+                >
+                </View>
                 <Text style={styles.labelemail}>Email :</Text>
                 <TextInput
                     style={styles.inputemail}
@@ -91,17 +98,31 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setemail}
                     autoCapitalize='sentences'
                     keyboardType='email-address'
-                    required
+                    required={true}
                 />
+                <View style={[
+                    styles.boxcheckemail,
+                    { backgroundColor: (email === "" || !email.includes("@")) ? "red" : "green" }
+                ]}>
+                </View>
                 <Text style={styles.labelphone}>Phone Number :</Text>
                 <TextInput
                     style={styles.inputphone}
                     keyboardType='phone-pad'
                     value={phonenumber}
                     onChangeText={SetphoneNumber}
-                    required
+                    required={true}
+
 
                 />
+                <View
+
+                    style={[
+                        styles.boxcheckphone,
+                        { backgroundColor: (phonenumber === "" || phonenumber.toString().length != 8) ? "red" : "green" }
+                    ]}>
+
+                </View>
                 <Text style={styles.labelpass}>Password : </Text>
                 <TextInput
                     style={styles.inputpass}
@@ -109,8 +130,16 @@ const SignUp = ({ navigation }) => {
                     onChangeText={Setpassword}
                     secureTextEntry={true}
                     keyboardType='sentences'
-                    required
+                    required={true}
                 />
+                <View
+
+                    style={[
+                        styles.boxcheckpassword,
+                        { backgroundColor: password === "" ? "red" : "green" }
+                    ]}>
+
+                </View>
                 <Text style={styles.labelmec}>Sign Up As a</Text>
                 <RadioButton.Group onValueChange={newValue => Setmecorcar(newValue)} value={mecorcar}>
                     <View style={styles.radioContainer}>
@@ -138,13 +167,43 @@ const SignUp = ({ navigation }) => {
                         navigation.navigate("Home");
                     }} />}
                 </TouchableOpacity>
-              
-
             </View>
         </KeyboardAvoidingView>
     )
 }
 const styles = StyleSheet.create({
+    boxcheckpassword: {
+        backgroundColor: 'red',
+        width: 15,
+        height: 15,
+        paddingtop: 56,
+        marginLeft: 270,
+        borderRadius: 50,
+    },
+    boxcheckemail: {
+        backgroundColor: 'red',
+        width: 15,
+        height: 15,
+        paddingtop: 56,
+        marginLeft: 270,
+        borderRadius: 50,
+    },
+    boxcheckphone: {
+        backgroundColor: 'red',
+        width: 15,
+        height: 15,
+        paddingtop: 56,
+        marginLeft: 270,
+        borderRadius: 50,
+    },
+    boxcheckname: {
+        backgroundColor: 'red',
+        width: 15,
+        height: 15,
+        paddingtop: 56,
+        marginLeft: 270,
+        borderRadius: 50,
+    },
     radioButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -230,7 +289,7 @@ const styles = StyleSheet.create({
         width: 270,
         height: 100,
         paddingTop: 78,
-        marginTop: 370,
+        marginTop: 420,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',
     },
@@ -238,7 +297,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 270,
         height: 80,
-        marginTop: 320,
+        marginTop: 350,
         paddingTop: 50,
         borderBottomWidth: 1,
         borderBottomColor: '#FFFFFF',

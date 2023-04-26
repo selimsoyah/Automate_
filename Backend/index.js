@@ -14,6 +14,24 @@ const db = mysql.createConnection({
   database: process.env.database,
   port: process.env.port,
 });
+app.post('/addcar',(req,res)=>{
+    const Brand = req.body.Brand;
+    const Type =req.body.Type;
+    const Kilo=req.body.Kilo;
+    const Age=req.body.Age;
+    const Insurance=req.body.Insurance;
+    const Empty=req.body.Empty;
+    const Visit=req.body.Visit;
+      db.query('INSERT INTO car(Brand,Type,Kilo,Age,Insurance,Emptying,Visit) VAlUES (?,?,?,?,?,?,?)',[Brand,Type,Kilo,Age,Insurance,Empty,Visit],(err,result)=>{
+        if(err){
+          console.log(err);
+          res.send("Error Occured While Adding !");
+        }
+        else{
+          res.send("All Attributes Were Inserted Into The Table Car");
+        }
+      })
+});
 app.post('/register', (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -38,6 +56,23 @@ app.post('/register', (req, res) => {
     }
   });
 });
+app.get('/id', (req, res) => {
+  const userId = req.params.id;
+  db.query('SELECT * FROM user WHERE iduser = ?', [userId], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send('Error retrieving user data');
+    } else {
+      if (result && result.length > 0) {
+        const user = result[0];
+        res.send(user);
+      } else {
+        res.send('User not found');
+      }
+    }
+  });
+});
+
 const verifyJWT = (req, res, next) => {
   const token = req.headers["access-token"];
   if (!token) {
@@ -72,15 +107,15 @@ app.post('/login', (req, res) => {
   });
 });
 app.post('/Schedule', (req, res) => {
-    const user_id = req.body.user_id 
-      const date = req.body.date  
-       const Timer = req.body.Timer   
-       const Note = req.body.note  
-         db.query("INSERT INTO user (date, Timer, Note) VALUES (?,?,?) WHERE user_id = ?", [date, Timer, Note], (err, result) => { 
-          if (err) { console.log(err) } 
-          else { res.send('Great Success') } 
-        });
-         })
+  const user_id = req.body.user_id
+  const date = req.body.date
+  const Timer = req.body.Timer
+  const Note = req.body.note
+  db.query("INSERT INTO user (date, Timer, Note) VALUES (?,?,?) WHERE user_id = ?", [date, Timer, Note], (err, result) => {
+    if (err) { console.log(err) }
+    else { res.send('Great Success') }
+  });
+})
 
 
 // const db = mysql.createConnection ({

@@ -7,25 +7,21 @@ import LogIn from '../screens/LogIn'
 import SearchShop from '../screens/SearchShop';
 import ViewInfo from '../screens/ViewInfo';
 import Dashboard from "../screens/Dashboard.js";
-import AddCar from '../screens/AddCar'
 import Schedule from '../screens/Schedule';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SignUp from '../screens/SignUp';
-import AddCarScreen from "../screens/AddCarScreen";
 import SearchMechanicsProfile from '../screens/SearchMechanicsProfile';
 import OTPScreen1 from "../screens/OtpScreen1";
 import { StyleSheet } from 'react-native';
 import CustomTabBarButton from "../components/CustomTabBarButton";
-import HomePage from "../screens/HomePage";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+import AddCar from "../screens/AddCar";
 
 const Tabs = () => {
   return (
     <Tab.Navigator
-
       screenOptions={({ route }) => ({
-
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyle,
         tabBarIcon: ({ focused, color, size }) => {
@@ -80,16 +76,14 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="AddCars" component={AddCar} />
       <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name='LogIn' component={LogIn} />
-      <Stack.Screen name="Home" component={HomePage} />
       <Stack.Screen name='tab' component={Tabs} />
       <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="AddCar" component={AddCar} />
       <Stack.Screen name="SearchShop" component={SearchShop} />
       <Stack.Screen name="ViewInfo" component={ViewInfo} />
-      <Stack.Screen name="AddCars" component={AddCarScreen} />
       <Stack.Screen name='OtpScreen' component={OTPScreen1} />
     </Stack.Navigator>
   );
