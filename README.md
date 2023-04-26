@@ -6,11 +6,11 @@ Quick Reminder :
     The content of .env should be as followed :
 
     {
-        serverport : 'your port',
-        user:'your db user',
-        host:'your host',
-        password:'your db password ',
-        database:'the name of your schema',
-        port:'your db port',
+        serverport = 'your port',
+        user='your db user',
+        host='your host',
+        password='your db password ',
+        database='the name of your schema',
+        port='your db port',
 
     }
