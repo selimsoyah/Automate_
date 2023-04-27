@@ -98,7 +98,8 @@ app.post('/login', (req, res) => {
   db.query('SELECT * FROM user WHERE useremail = ? AND password = ?', [email, password], (err, result) => {
     if (result.length > 0) {
       const id = result[0].id;
-      const token = jwt.sign({ id }, "jwtSecretKey", { expiresIn: 300 });
+      const mecorcar=result[0].mecorcar
+      const token = jwt.sign({ id , mecorcar }, "jwtSecretKey", { expiresIn: 300 });
       res.json({ Login: true, token, result })
     } else {
       res.json({ Login: false, result })

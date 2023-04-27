@@ -12,7 +12,7 @@ const AddCar = ({navigation}) => {
   const [Visit,Setvisit]=useState("");
   const addcar = async () => {
     try {
-        const response = await Axios.post(`http://Ipaddress:Serverport/addcar`, {
+        const response = await Axios.post(`http://192.168.51.51:3000/addcar`, {
            Brand:Brand,
            Type:Type,
            Kilo:Kilo,
@@ -85,7 +85,7 @@ const AddCar = ({navigation}) => {
       </Pressable>
       <View style={styles.skipSection}>
         <Text style={{ textAlign: 'center', color: 'white' }}>Already Have a Car ?</Text>
-        <TouchableOpacity style={styles.skipButton}>
+        <TouchableOpacity style={styles.skipButton} onPress={()=>navigation.navigate('tab')}> 
           <Text style={{ textAlign: 'center', color: 'white', paddingTop: 5 }}>Skip</Text>
         </TouchableOpacity>
       </View>

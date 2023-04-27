@@ -19,7 +19,9 @@ const IP = process.env.Ipaddress
                             </View>
                         )
                     }
-                })}*/
+                })}
+                   
+                */
 const serverport = process.env.serverport;
 const CustomButton = ({ title, onPress, buttonStyle, textStyle, disabled }, { navigation }) => {
     return (
@@ -45,10 +47,10 @@ const SignUp = ({ navigation }) => {
     const [user, Setuser] = useState(false)
     const [userlist, Setuserlist] = useState([])
     const isDisabled =
-        name.trim() === "" || email.trim() === "" || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
+        name.trim() === "" || (email.trim() === "" || !email.includes("@")) || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http://Ipaddress:Serverport/register`, {
+            const response = await Axios.post(`http:/192.168.51.51:3000/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
@@ -140,6 +142,14 @@ const SignUp = ({ navigation }) => {
                     ]}>
 
                 </View>
+
+                <CustomButton
+                    title="SignUp"
+                    onPress={adduser}
+                    buttonStyle={{ marginTop: 70, borderRadius: 10 }}
+                    textStyle={{ fontSize: 20 }}
+                    disabled={isDisabled}
+                />
                 <Text style={styles.labelmec}>Sign Up As a</Text>
                 <RadioButton.Group onValueChange={newValue => Setmecorcar(newValue)} value={mecorcar}>
                     <View style={styles.radioContainer}>
@@ -151,21 +161,16 @@ const SignUp = ({ navigation }) => {
                         <RadioButton.Android value="CarOwner" color="white" uncheckedColor="#ccc" />
                     </View>
                 </RadioButton.Group>
-                <CustomButton
-                    title="SignUp"
-                    onPress={adduser}
-                    buttonStyle={{ marginTop: 70, borderRadius: 10 }}
-                    textStyle={{ fontSize: 20 }}
-                    disabled={isDisabled}
-                />
                 <TouchableOpacity
-                    style={{ marginTop: 30, paddingBottom: 10, alignItems: 'center' }} onPress={navigation.navigate('Sign')} title="Already Have An Account ?">
+                    style={{ marginTop: 30, paddingBottom: 10, alignItems: 'center' }} onPress={
+
+                        () => navigation.navigate("LogIn")} title="Already Have An Account ?">
                     <Text
                         style={{ color: 'white', textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 15, }}> Don't Have An Account ?
                     </Text>
-                    {Setuser && <TouchableOpacity onPress={() => {
-                        navigation.navigate("Home");
-                    }} />}
+                    <TouchableOpacity onPress={() => {
+                        navigation.navigate("LogIn");
+                    }} />
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

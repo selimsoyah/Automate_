@@ -4,8 +4,7 @@ import { useState } from "react";
 import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddCar from './AddCar';
-const serverport = process.env.serverport;
-const IP = process.env.Ipaddress
+import jwtDecode from 'jwt-decode'
 const CustomButton = ({ title, onPress, buttonStyle, textStyle }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.customButton, buttonStyle]}>
@@ -19,7 +18,7 @@ const LogIn = ({ navigation }) => {
     const [Status, Setstatus] = useState(false);
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://Ipaddress:Serverport/login`, {
+            const response = await Axios.post(`http://192.168.51.51:3000/login`, {
                 email: email,
                 password: password,
             });
@@ -29,7 +28,14 @@ const LogIn = ({ navigation }) => {
                 Setstatus(true);
                 console.log(Status);
                 AsyncStorage.setItem("token", response.data.token);
-                navigation.navigate("AddCars");
+                const decodedToken=jwtDecode(response.data.token)
+                const mecorcar=decodedToken.mecorcar;
+                if (mecorcar === "CarOwner"){
+                    navigation.navigate('AddCars')
+                }
+                else{
+                    navigation.navigate("Shop")
+                }
             } else {
                 alert("Something Went Wrong ! , Your Email Or Your Password Are Not Matching !!")
                 Setstatus(false);
@@ -43,7 +49,7 @@ const LogIn = ({ navigation }) => {
         AsyncStorage.getItem("token")
             .then((token) => {
                 if (token) {
-                    Axios.get("http://Ipaddress:Serverport/auth", {
+                    Axios.get("http://192.168.51.51:3000/auth", {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -92,7 +98,9 @@ const LogIn = ({ navigation }) => {
                     textStyle={{ fontSize: 20 }}
                 />
             </View>
-            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}onPress={navigation.navigate("LogIn")}>
+            <TouchableOpacity style={{ marginTop: 30, paddingBottom: 50, top: 150 }}onPress={()=>
+            navigation.navigate("Sign")
+            }>
                 <Text style={{ color: "white", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 15 }}>Don't Have An Account ?</Text>
             </TouchableOpacity>
             <View>
