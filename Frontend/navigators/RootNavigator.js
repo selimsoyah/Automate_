@@ -14,15 +14,18 @@ import SearchMechanicsProfile from '../screens/SearchMechanicsProfile';
 import OTPScreen1 from "../screens/OtpScreen1";
 import { StyleSheet } from 'react-native';
 import CustomTabBarButton from "../components/CustomTabBarButton";
+import AddCar from "../screens/AddCar";
+import ForgotPassword from "../screens/ForgotPassword";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-import AddCar from "../screens/AddCar";
+
 
 const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
+        headerShown: false,
         tabBarStyle: styles.tabBarStyle,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -77,6 +80,7 @@ const RootNavigator = () => {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name='LogIn' component={LogIn} />
+      <Stack.Screen name="Forgot" component={ForgotPassword} />
       <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name="AddCars" component={AddCar} />
       <Stack.Screen name='tab' component={Tabs} />

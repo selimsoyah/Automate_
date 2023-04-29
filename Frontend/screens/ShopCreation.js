@@ -1,36 +1,43 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
-import React , {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 
-export default function ShopCreation({ navigation , route }) {
-   
-    const [longitude,setLongitude] = useState(0)
-    const [latitude,setLatitude] = useState(0)
-    const [store_name,setName] = useState('')
-    const [categories,setCategories] = useState('')
+export default function ShopCreation({ navigation, route }) {
 
-    useEffect(()=>{
-        // console.log(route.params)
-        if(route.params !== undefined ){
+    const [longitude, setLongitude] = useState(0)
+    const [latitude, setLatitude] = useState(0)
+    const [store_name, setName] = useState('')
+    const [categories, setCategories] = useState('')
+
+    useEffect(() => {
+        if (route.params !== undefined) {
             setLatitude(route.params.propLatitude)
             setLongitude(route.params.propLongitude)
-            console.log(longitude,latitude)
+            console.log(longitude, latitude)
         }
-    },[route.params])
+    }, [route.params])
 
-    const addShopInfo = async ()=>{
-        const shopData ={
-            store_name : store_name,
-            latitude:latitude,
-            longitude : longitude,
-            categories:categories
+    const addShopInfo = async () => {
+        const shopData = {
+            store_name: store_name,
+            latitude: latitude,
+            longitude: longitude,
+            categories: categories
         }
-            try{
-                const result = await Axios.post("http://Ipaddress:Serverport/location",shopData)
-                console.log('data added successfully', result.data);
-            }catch (err){
-                console.log(err)
+        try {
+            const result = await Axios.post("http://ip:3000/location", shopData)
+            console.log('data added successfully', result.data);
+            if (result.data.includes("Shop Added !")) {
+                navigation.navigate('tab')
             }
+            else {
+                alert(
+                    "Error Occured ! Please Try Again"
+                )
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
     return (
         <View style={styles.container}>
@@ -55,7 +62,7 @@ export default function ShopCreation({ navigation , route }) {
                     />
                 </View>
 
-                <Pressable style={{ marginTop: 30}}
+                <Pressable style={{ marginTop: 30 }}
                     onPress={() => {
                         navigation.navigate("Map")
                     }}>
@@ -116,7 +123,7 @@ const styles = StyleSheet.create({
         margin: 20,
         height: 58.55,
         borderRadius: 12,
-        left:20,
+        left: 20,
 
     },
     addbuttonText: {

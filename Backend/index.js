@@ -117,30 +117,37 @@ app.post('/Schedule', (req, res) => {
     else { res.send('Great Success') }
   });
 })
-
-
-// const db = mysql.createConnection ({
-//         password : 'loumalimou',
-//         database:'automateappv10',
-//         user:'root',
-//         localhost:'localhost'
-// })
-
 app.post('/location', (req, res) => {
-
   const store_name = req.body.store_name
   const latitude = req.body.latitude
   const longitude = req.body.longitude
   const categories = req.body.categories
-
   db.query("INSERT INTO mechanicalstore (user_id,store_name,latitude,longitude,categories) VALUES (1,?,?,?,?)",
     [store_name, latitude, longitude, categories], (err, result) => {
       if (err) { console.log(err) }
       else {
-        res.send('Great Success')
+        res.send('Shop Added !')
       }
     });
 })
+app.put('/updatepass', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, result) => {
+    if (result && result.length > 0) {
+      db.query('UPDATE user SET password = ? WHERE useremail = ?', [password, email], (err, result) => {
+        if (err) {
+          console.log(err);
+          res.send('Error updating password');
+        } else {
+          res.send('Password updated successfully!');
+        }
+      });
+    } else {
+      res.send('Email does not exist');
+    }
+  });
+});
 app.listen(serverport, () => {
   console.log(`Server Is Runnning On Your Port ${serverport}`);
 });
