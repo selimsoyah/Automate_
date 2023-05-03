@@ -15,7 +15,7 @@ const SearchBar = ({clicked, searchPhrase, setSearchPhrase, setCLicked}) => {
         <Feather
           name="search"
           size={20}
-          color="#FFFFFF"
+          color="black"
           style={{ marginLeft: 1 }}
         />
         
@@ -23,7 +23,7 @@ const SearchBar = ({clicked, searchPhrase, setSearchPhrase, setCLicked}) => {
           style={styles.input}
           placeholder="Search"
           value={searchPhrase}
-          placeholderTextColor="#FFFFFF"
+          placeholderTextColor="grey"
           onChangeText={setSearchPhrase}
           onFocus={() => {
             setCLicked(true);
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
   searchBar__unclicked: {
     padding: 4,
     flexDirection: "row",
-    width: 212,
-    backgroundColor: "#000000",
+    width: 280,
+    backgroundColor: "white",
     borderRadius: 10,
     alignItems: "center",
   },
@@ -75,12 +75,13 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     width: "80%",
-    backgroundColor: "#d9dbda",
+    backgroundColor: "white",
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "space-evenly",
   },
   input: {
+    color:"black",
     fontSize: 20,
     marginLeft: 10,
     width: "90%",

@@ -77,6 +77,13 @@ app.post('/location', (req,res)=>{
         }
      })
 })
+app.get('/carinfo', (req,res)=>{
+  db.query("SELECT * FROM car",(error,results)=> {
+    if (error) throw error;
+    res.send(results);
+  }
+  );
+})
 
 app.listen(serverport, () => {
     console.log(`Server Is Runnning On Your Port ${serverport}`); 
