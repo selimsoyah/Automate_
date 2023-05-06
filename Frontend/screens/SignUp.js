@@ -43,6 +43,7 @@ const SignUp = ({ navigation }) => {
     const [email, Setemail] = useState("");
     const [phonenumber, SetphoneNumber] = useState("");
     const [password, Setpassword] = useState("");
+
     const [mecorcar, Setmecorcar] = useState("");
     const [user, Setuser] = useState(false)
     const [userlist, Setuserlist] = useState([])
@@ -50,7 +51,7 @@ const SignUp = ({ navigation }) => {
         name.trim() === "" || (email.trim() === "" || !email.includes("@")) || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http:/192.168.51.51:3000/register`, {
+            const response = await Axios.post(`http:/192.168.1.111:3000/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,

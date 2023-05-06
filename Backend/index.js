@@ -132,9 +132,9 @@ app.post('/location', (req, res) => {
   const latitude = req.body.latitude
   const longitude = req.body.longitude
   const categories = req.body.categories
-
-  db.query("INSERT INTO mechanicalstore (user_id,store_name,latitude,longitude,categories) VALUES (1,?,?,?,?)",
-    [store_name, latitude, longitude, categories], (err, result) => {
+  const description = req.body.description
+  db.query("INSERT INTO mechanicalstore (user_id,store_name,latitude,longitude,categories,description) VALUES (1,?,?,?,?,?)",
+    [store_name, latitude, longitude, categories,description], (err, result) => {
       if (err) { console.log(err) }
       else {
         res.send('Great Success')

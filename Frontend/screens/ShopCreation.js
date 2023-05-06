@@ -8,12 +8,16 @@ export default function ShopCreation({ navigation , route }) {
     const [latitude,setLatitude] = useState(0)
     const [store_name,setName] = useState('')
     const [categories,setCategories] = useState('')
+    const [description,setDescription] = useState('')
 
     useEffect(()=>{
         // console.log(route.params)
         if(route.params !== undefined ){
             setLatitude(route.params.propLatitude)
             setLongitude(route.params.propLongitude)
+            console.log(longitude,latitude)
+        }
+        else{
             console.log(longitude,latitude)
         }
     },[route.params])
@@ -23,10 +27,11 @@ export default function ShopCreation({ navigation , route }) {
             store_name : store_name,
             latitude:latitude,
             longitude : longitude,
-            categories:categories
+            categories:categories,
+            description : description
         }
             try{
-                const result = await Axios.post("http://Ipaddress:Serverport/location",shopData)
+                const result = await Axios.post("http://192.168.1.111:3000/location",shopData)
                 console.log('data added successfully', result.data);
             }catch (err){
                 console.log(err)
@@ -51,6 +56,12 @@ export default function ShopCreation({ navigation , route }) {
                     <TextInput
                         style={styles.inputs}
                         onChangeText={setCategories
+                        }
+                    />
+                    <Text style={[styles.textdecoration, styles.labels]}>Description :</Text>
+                    <TextInput
+                        style={[styles.inputs, styles.desc]}
+                        onChangeText={setDescription
                         }
                     />
                 </View>
@@ -87,6 +98,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 20,
         fontSize: 22
+    },
+    desc:{
+        height:100
     },
     form1: {
         flex: 0.7,
