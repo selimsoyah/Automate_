@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import SearchInput from '../components/Input'
-import { StyleSheet, View, Button, Text, Pressable, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+
+import SearchInput from '../components/SearchInput'
+
+
 import { MaterialIcons } from '@expo/vector-icons';
-import Garage from '../assets/garage.jpeg'
+// import Garage from '../assets/garage.jpeg'
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 
-
+import React, { useState, useEffect } from 'react';
+import MapView, { Marker, Callout } from 'react-native-maps';
+import { StyleSheet, View, Button, Text, Pressable, Image,Dimensions } from 'react-native';
+import * as Location from 'expo-location';
 
 export default function Search() {
-    const [region, setRegion] = useState({
-        latitude: 34.00000000,
-        longitude: 9.00000000,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-    })
-
+    const [region, setRegion] = useState()
+    useEffect(() => {
+        userLocation()
+    }, [])
     const userLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -33,10 +33,18 @@ export default function Search() {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         })
+
     }
-    const [searchValue, setSearchValue] = useState('');
+    const coord = [
+        { coordinates: { latitude: 36.794829, longitude: 10.073459 }, title: 'Hama Shop' , link:'ViewInfo'},
+        { coordinates: { latitude: 36.818610, longitude: 10.165960 }, title: 'Stoufa Shop', link:'ViewInfo' },
+        { coordinates: { latitude: 36.851711, longitude: 10.199877 }, title: '3jeli Tn' , link:'ViewInfo'},
+        { coordinates: { latitude: 36.855452, longitude: 10.238358 }, title: 'Mercedez Benz', link:'ViewInfo' },
+        { coordinates: { latitude: 36.802279, longitude: 10.232275 }, title: 'salim shop', link:'ViewInfo' }
+    ];
+
     const handleSearchChange = (text) => {
-        setSearchValue(text);
+    
         // Do something with the search value, like filtering a list
     };
     const handleMenuPress = () => {
@@ -47,24 +55,30 @@ export default function Search() {
         <View style={styles.search}>
             <SearchInput
                 style={styles.input}
-                value={searchValue}
+               
                 onChangeText={handleSearchChange}
                 onMenuPress={handleMenuPress}
             />
-            <MapView style={styles.map}
-                region={region}
-                userInterfaceStyle='dark'
-            >
-                <Marker coordinate={region} title='Marker' />
-                <Pressable onPress={userLocation} style={styles.locator}>
-                    <MaterialIcons name="my-location" size={24} color="white" />
-                </Pressable>
+            <MapView style={styles.map} region={region}>
+                {coord.map((item, index) => (
+                    <Marker
+                        key={index}
+                        coordinate={item.coordinates}
+                        title={item.title}
+                    >
+                        <Callout onPress={() => navigation.navigate(item.link)}>
+                            <View style={styles.calloutContainer}>
+                                <Text style={styles.calloutText}>{item.title}</Text>
+                            </View>
+                        </Callout>
+                    </Marker>
+                ))}
             </MapView>
             <View style={styles.garage}>
-                <Image
+                {/* <Image
                     style={styles.img}
                     source={Garage}>
-                </Image>
+                </Image> */}
                 <View style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -154,21 +168,7 @@ export default function Search() {
                     flexDirection:'row',
                     padding:10,
                 }}>
-                    <TouchableOpacity style={styles.button1} >
-                    <Entypo name="direction" size={24} color="white" />
-                        <Text style={{color:'white',}}>Direction</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button2} >
-                    <Ionicons name="call-outline" size={15} color="grey" />
-                        <Text style={{color:"grey" }}>Call</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button2} >
-                    <Entypo name="share" size={15} color="grey" />
-                        <Text style={{color:"grey" }}>Share</Text>
-                    </TouchableOpacity>
-
+                   
 
                 </View>
 
