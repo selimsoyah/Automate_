@@ -8,7 +8,7 @@ import Picker from '../utils/picker';
 import Profile from '../utils/profile'
 
 
-const HomeScreen =({navigation}) => {
+const SearchMechanicsProfile =({navigation}) => {
   return (
     <SafeAreaView style={{backgroundColor: "#1E293B", flex: 1}}>
         <ScrollView
@@ -20,4 +20,4 @@ const HomeScreen =({navigation}) => {
     </SafeAreaView>
   );
 };
- export default HomeScreen;
+ export default SearchMechanicsProfile;

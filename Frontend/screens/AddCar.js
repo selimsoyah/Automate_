@@ -12,7 +12,7 @@ const AddCar = ({navigation}) => {
   const [Visit,Setvisit]=useState("");
   const addcar = async () => {
     try {
-        const response = await Axios.post(`http://192.168.51.51:3000/addcar`, {
+        const response = await Axios.post(`http://192.168.1.12:3000/addcar`, {
            Brand:Brand,
            Type:Type,
            Kilo:Kilo,

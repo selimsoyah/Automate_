@@ -30,11 +30,7 @@ const ViewInfo = ({ navigation }) => {
         </View>
       </View>
     </SafeAreaView>
-  
-
-        
-     
-        
+      
         <Text style={styles.NameShop}>
             Top Auto repair
         </Text>
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
     top:380,
     color: 'white',
     fontWeight:'bold',
-     fontSize:'30'
+     fontSize:30
   },
   Address:{
     position: "absolute",

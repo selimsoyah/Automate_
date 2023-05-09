@@ -51,7 +51,7 @@ const SignUp = ({ navigation }) => {
         name.trim() === "" || (email.trim() === "" || !email.includes("@")) || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http:/192.168.1.111:3000/register`, {
+            const response = await Axios.post(`http:/192.168.1.12:3000/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,

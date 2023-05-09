@@ -18,7 +18,7 @@ const LogIn = ({ navigation }) => {
     const [Status, Setstatus] = useState(false);
     const checkuser = async () => {
         try {
-            const response = await Axios.post(`http://192.168.51.51:3000/login`, {
+            const response = await Axios.post(`http://192.168.1.12:3000/login`, {
                 email: email,
                 password: password,
             });

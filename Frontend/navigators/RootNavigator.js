@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ShopCreation from "../screens/ShopCreation";
 import Map from '../components/Map';
 import LogIn from '../screens/LogIn'
-import SearchShop from '../screens/SearchShop';
+// import SearchShop from '../screens/SearchShop';
 import ViewInfo from '../screens/ViewInfo';
 import Dashboard from "../screens/Dashboard.js";
 import Schedule from '../screens/Schedule';
@@ -15,6 +15,7 @@ import OTPScreen1 from "../screens/OtpScreen1";
 import { StyleSheet } from 'react-native';
 import CustomTabBarButton from "../components/CustomTabBarButton";
 import MarkerGenerator from "../components/MarkerGenerator";
+import SearchShop from "../screens/Search";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import AddCar from "../screens/AddCar";
@@ -85,8 +86,8 @@ const RootNavigator = () => {
       <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name="AddCars" component={AddCar} />
       <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="SearchShop" component={SearchShop} />
-      <Stack.Screen name="ViewInfo" component={ViewInfo} />
+      {/* <Stack.Screen name="SearchShop" component={SearchShop} /> */}
+
       <Stack.Screen name='OtpScreen' component={OTPScreen1} />
     </Stack.Navigator>
   );

@@ -3,7 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Button, Text, Pressable, Image } from 'react-native';
 import * as Location from 'expo-location';
 
-export default function App() {
+export default function SearchShop() {
     const [region, setRegion] = useState({
         latitude: 34.00000000,
         longitude: 9.00000000,
@@ -30,7 +30,7 @@ export default function App() {
 
 
     return (
-        <View style={styles.MainContainer}>
+        <View >
             <View style={styles.container}>
                 <MapView style={styles.map}
                     region={region}
