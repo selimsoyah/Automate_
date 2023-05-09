@@ -5,7 +5,7 @@ import Insurance from '../components/Insurancecomp';
 import Kilometrage from '../components/Kilometrage';
 import CarAge from '../components/CarAge';
 import Technicalvisit from '../components/TechnicalVisit';
-export default function viewInfo() {
+export default function CarDetails({navigation}) {
   return (
     <SafeAreaView style={{backgroundColor: "#1E293B"}}>
         <ScrollView>

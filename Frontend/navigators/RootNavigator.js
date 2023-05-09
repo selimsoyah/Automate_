@@ -20,7 +20,8 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import AddCar from "../screens/AddCar";
 import { Marker } from "react-native-maps";
-
+import CarDetails from "../screens/CarDetails";
+import CarComponent from "../components/CarComponent";
 const Tabs = () => {
   return (
     <Tab.Navigator
@@ -87,8 +88,9 @@ const RootNavigator = () => {
       <Stack.Screen name="AddCars" component={AddCar} />
       <Stack.Screen name="Map" component={Map} />
       {/* <Stack.Screen name="SearchShop" component={SearchShop} /> */}
-
+      <Stack.Screen name='Details' component={CarDetails}/>
       <Stack.Screen name='OtpScreen' component={OTPScreen1} />
+      <Stack.Screen name='CarComponent' component={CarComponent} />
     </Stack.Navigator>
   );
 };

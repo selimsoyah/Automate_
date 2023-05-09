@@ -1,7 +1,7 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CarComponent from '../components/CarComponent'
-export default function carlist() {
+export default function Dashboard({navigation}) {
   return (
     <SafeAreaView style={{backgroundColor: "#1E293B",flex:1}}>
         <ScrollView
@@ -9,7 +9,7 @@ export default function carlist() {
               <View style={styles.HeadTitle}>
                     <Text style={styles.HeadText}>Salim's Car</Text>
                 </View>
-            <CarComponent/>
+            <CarComponent navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   )

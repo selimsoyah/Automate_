@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleSheet, Image, Text, View, ImageBackground,Button,TouchableOpacity } from "react-native"
 
-export default function CarComponent() {
+export default function CarComponent({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.Group7366}>
@@ -21,7 +21,7 @@ export default function CarComponent() {
         <View style={styles.Rectangle2520} />
       </View>
       <View  >
-      <TouchableOpacity style={styles.button} onPress={this.onPress}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Details")}>
           <Text style ={styles.Text}>View More details</Text>
         </TouchableOpacity>
       </View>
