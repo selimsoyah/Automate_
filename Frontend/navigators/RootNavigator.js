@@ -78,13 +78,12 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='tab' component={Tabs} />
       <Stack.Screen name='Marker' component ={MarkerGenerator}/>
       <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name='LogIn' component={LogIn} />
       <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name="AddCars" component={AddCar} />
-      <Stack.Screen name='tab' component={Tabs} />
-     
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="SearchShop" component={SearchShop} />
       <Stack.Screen name="ViewInfo" component={ViewInfo} />
