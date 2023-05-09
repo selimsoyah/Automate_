@@ -22,60 +22,51 @@ import AddCar from "../screens/AddCar";
 import { Marker } from "react-native-maps";
 import CarDetails from "../screens/CarDetails";
 import CarComponent from "../components/CarComponent";
-const Tabs = () => {
+
+const Tabs = () =>{
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarShowLabel: false,
-        tabBarStyle: styles.tabBarStyle,
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+     <Tab.Navigator
+     screenOptions={({ route }) => ({
+       tabBarStyle:{
+         backgroundColor:'black',
+       },
+       tabBarIcon: ({ focused, color, size }) => {
+         let iconName;
 
-          if (route.name === 'Search') {
-            iconName = focused
-              ? 'car-sport'
-              : 'car-sport-outline';
-          } else if (route.name === 'Schedual') {
-            iconName = focused ? 'calendar' : 'calendar';
-          }
-          else if (route.name === 'ShopList') {
-            iconName = focused ? 'basket-outline' : 'basket-sharp';
-          }
-          else if (route.name === 'ViewInfo') {
-            iconName = focused ? 'information-circle' : 'information-circle-outline';
-          }
-          return <Ionicons name={iconName} size={22} color={color} />;
-        },
+         if (route.name === 'My Cars') {
+           iconName = focused
+             ? 'car-sport'
+             : 'car-sport-outline';
+         } else if (route.name === 'Schedual') {
+           iconName = focused ? 'calendar' : 'calendar';
+         }
+         else if (route.name === 'View Shop') {
+           iconName = focused ? 'basket-outline' : 'basket-sharp';
+         }
+         else if (route.name === 'YourProfile') {
+           iconName = focused ? 'profile' : 'profile'; // No functional 
+         }
 
-      })}
+         // You can return any component that you like here!
+         return <Ionicons name={iconName} size={size} color={color} />;
+       },
+      
+     })}
 
-      tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: 'gray',
-      }}
-    >
-      <Tab.Screen name='Search'
-
-        component={Dashboard}
-        options={{
-          tabBarButton: props => <CustomTabBarButton {...props} />
-        }}
-      />
-
-      <Tab.Screen name='Schedual' component={Schedule} options={{
-        tabBarButton: props => <CustomTabBarButton {...props} />
-      }} />
-      <Tab.Screen name='ViewInfo' component={ViewInfo} options={{
-        tabBarButton: props => <CustomTabBarButton {...props} />
-      }} />
-      <Tab.Screen name='ShopList' component={SearchMechanicsProfile} options={{
-        tabBarButton: props => <CustomTabBarButton {...props} />
-      }} />
-
-    </Tab.Navigator>
+     tabBarOptions={{
+         activeTintColor:'white',
+         inactiveTintColor:'gray',
+     }}
+     >
+         <Tab.Screen name='My Cars' component={Dashboard} />
+         <Tab.Screen name='Schedual' component={Schedule} />
+         {/* <Tab.Screen name='ShopList' component={Dashboard} />   */}
+         <Tab.Screen name='View Shop' component={MarkerGenerator} /> 
+     </Tab.Navigator>
 
   );
 }
+
 const RootNavigator = () => {
   return (
     <Stack.Navigator

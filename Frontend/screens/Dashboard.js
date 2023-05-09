@@ -1,7 +1,8 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+
 import CarComponent from '../components/CarComponent'
-export default function Dashboard({navigation}) {
+export default function carlist( {navigation}) {
   return (
     <SafeAreaView style={{backgroundColor: "#1E293B",flex:1}}>
         <ScrollView

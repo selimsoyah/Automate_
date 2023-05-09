@@ -20,8 +20,8 @@ export default function Group7381() {
 
 const styles = StyleSheet.create({
   Group7381: {
-    width: 104,
-    height: 93,
+    width: 109,
+    height: 110,
     paddingLeft: 4,
     paddingRight: 4,
     paddingTop: 17,
@@ -45,20 +45,20 @@ const styles = StyleSheet.create({
   },
   OilChange: {
     color: "rgba(141,152,168,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
+    
+    
+    
     fontWeight: "700",
-    letterSpacing: "0.2px",
+    
     textDecoration: "underline",
   },
   Every10000Miles: {
     color: "rgba(112,112,204,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
+    
+    
+    
     fontWeight: "500",
-    letterSpacing: "0.2px",
+    
     textDecoration: "underline",
   },
 })

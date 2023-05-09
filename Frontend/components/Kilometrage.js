@@ -11,7 +11,7 @@ export default function Kilometreage1() {
             uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/x4atqtncd1-1161%3A81?alt=media&token=ee397e36-599b-456b-a787-39161a9b8108",
           }}
         />
-        <Text style={styles.Kilometreage}>Kilometreage</Text>
+        <Text style={styles.Kilometreage}>Kilometre-age</Text>
         <Text style={styles._450000}>450000</Text>
       </View>
     </View>
@@ -20,8 +20,8 @@ export default function Kilometreage1() {
 
 const styles = StyleSheet.create({
   Kilometreage1: {
-    width: 104,
-    height: 93,
+    width: 109,
+    height: 100,
     paddingLeft: 10,
     paddingRight: 21,
     paddingTop: 18,
@@ -45,20 +45,12 @@ const styles = StyleSheet.create({
   },
   Kilometreage: {
     color: "rgba(141,152,168,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
-    fontWeight: "1500",
-    letterSpacing: "0.2px",
+    fontWeight: "500",
     textDecoration: "underline",
   },
   _450000: {
     color: "rgba(112,112,204,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "500",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
 })

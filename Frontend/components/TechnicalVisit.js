@@ -20,8 +20,8 @@ export default function Technicalvisit() {
 
 const styles = StyleSheet.create({
   Technicalvisit: {
-    width: 104,
-    height: 93,
+    width: 120,
+    height: 115,
     paddingLeft: 10,
     paddingRight: 14,
     paddingTop: 12,
@@ -45,20 +45,12 @@ const styles = StyleSheet.create({
   },
   TechnicalVisit: {
     color: "rgba(141,152,168,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "700",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
   _20230417: {
     color: "rgba(112,112,204,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "500",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
 })
