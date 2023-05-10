@@ -51,7 +51,7 @@ const SignUp = ({ navigation }) => {
         name.trim() === "" || (email.trim() === "" || !email.includes("@")) || (phonenumber.trim() === "" || phonenumber.toString().length < 8) || password.trim() === "";
     const adduser = async () => {
         try {
-            const response = await Axios.post(`http:/192.168.1.12:3000/register`, {
+            const response = await Axios.post(`http:/192.168.1.2:3000/register`, {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
@@ -144,13 +144,7 @@ const SignUp = ({ navigation }) => {
 
                 </View>
 
-                <CustomButton
-                    title="SignUp"
-                    onPress={adduser}
-                    buttonStyle={{ marginTop: 70, borderRadius: 10 }}
-                    textStyle={{ fontSize: 20 }}
-                    disabled={isDisabled}
-                />
+               
                 <Text style={styles.labelmec}>Sign Up As a</Text>
                 <RadioButton.Group onValueChange={newValue => Setmecorcar(newValue)} value={mecorcar}>
                     <View style={styles.radioContainer}>
@@ -159,9 +153,16 @@ const SignUp = ({ navigation }) => {
                     </View>
                     <View style={styles.radioContainer}>
                         <Text style={styles.label}>Car Owner</Text>
-                        <RadioButton.Android value="CarOwner" color="white" uncheckedColor="#ccc" />
+                        <RadioButton.Android value="Car Owner" color="white" uncheckedColor="#ccc" />
                     </View>
                 </RadioButton.Group>
+                <CustomButton
+                    title="SignUp"
+                    onPress={adduser}
+                    buttonStyle={{ marginTop:20, borderRadius: 10 }}
+                    textStyle={{ fontSize: 20 }}
+                    disabled={isDisabled}
+                />
                 <TouchableOpacity
                     style={{ marginTop: 30, paddingBottom: 10, alignItems: 'center' }} onPress={
 

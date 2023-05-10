@@ -23,46 +23,47 @@ import { Marker } from "react-native-maps";
 import CarDetails from "../screens/CarDetails";
 import CarComponent from "../components/CarComponent";
 
-const Tabs = () =>{
+const Tabs = () => {
   return (
-     <Tab.Navigator
-     screenOptions={({ route }) => ({
-       tabBarStyle:{
-         backgroundColor:'black',
-       },
-       tabBarIcon: ({ focused, color, size }) => {
-         let iconName;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: 'black',
+        },
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-         if (route.name === 'My Cars') {
-           iconName = focused
-             ? 'car-sport'
-             : 'car-sport-outline';
-         } else if (route.name === 'Schedual') {
-           iconName = focused ? 'calendar' : 'calendar';
-         }
-         else if (route.name === 'View Shop') {
-           iconName = focused ? 'basket-outline' : 'basket-sharp';
-         }
-         else if (route.name === 'YourProfile') {
-           iconName = focused ? 'profile' : 'profile'; // No functional 
-         }
+          if (route.name === 'My Cars') {
+            iconName = focused
+              ? 'car-sport'
+              : 'car-sport-outline';
+          } else if (route.name === 'Schedual') {
+            iconName = focused ? 'calendar' : 'calendar';
+          }
+          else if (route.name === 'View Shop') {
+            iconName = focused ? 'basket-outline' : 'basket-sharp';
+          }
+          else if (route.name === 'YourProfile') {
+            iconName = focused ? 'profile' : 'profile'; // No functional 
+          }
 
-         // You can return any component that you like here!
-         return <Ionicons name={iconName} size={size} color={color} />;
-       },
-      
-     })}
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
 
-     tabBarOptions={{
-         activeTintColor:'white',
-         inactiveTintColor:'gray',
-     }}
-     >
-         <Tab.Screen name='My Cars' component={Dashboard} />
-         <Tab.Screen name='Schedual' component={Schedule} />
-         {/* <Tab.Screen name='ShopList' component={Dashboard} />   */}
-         <Tab.Screen name='View Shop' component={MarkerGenerator} /> 
-     </Tab.Navigator>
+      })}
+
+      tabBarOptions={{
+        activeTintColor: 'white',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen name='My Cars' component={Dashboard} />
+      <Tab.Screen name='Schedual' component={Schedule} />
+      {/* <Tab.Screen name='ShopList' component={Dashboard} />   */}
+      <Tab.Screen name='View Shop' component={MarkerGenerator} />
+    </Tab.Navigator>
 
   );
 }
@@ -71,15 +72,15 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='tab' component={Tabs} />
-      <Stack.Screen name='Marker' component ={MarkerGenerator}/>
+      <Stack.Screen name='Sign' component={SignUp} />
+      <Stack.Screen name='Marker' component={MarkerGenerator} />
       <Stack.Screen name="Shop" component={ShopCreation} />
       <Stack.Screen name='LogIn' component={LogIn} />
-      <Stack.Screen name='Sign' component={SignUp} />
       <Stack.Screen name="AddCars" component={AddCar} />
+      <Stack.Screen name='tab' component={Tabs}/> 
       <Stack.Screen name="Map" component={Map} />
-      {/* <Stack.Screen name="SearchShop" component={SearchShop} /> */}
-      <Stack.Screen name='Details' component={CarDetails}/>
+      <Stack.Screen name="ViewInfo" component={ViewInfo} />
+      <Stack.Screen name='Details' component={CarDetails} />
       <Stack.Screen name='OtpScreen' component={OTPScreen1} />
       <Stack.Screen name='CarComponent' component={CarComponent} />
     </Stack.Navigator>

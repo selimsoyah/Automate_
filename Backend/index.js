@@ -14,24 +14,33 @@ const db = mysql.createConnection({
   database: process.env.database,
   port: process.env.port,
 });
-app.post('/addcar',(req,res)=>{
-    const Brand = req.body.Brand;
-    const Type =req.body.Type;
-    const Kilo=req.body.Kilo;
-    const Age=req.body.Age;
-    const Insurance=req.body.Insurance;
-    const Empty=req.body.Empty;
-    const Visit=req.body.Visit;
-      db.query('INSERT INTO car(Brand,Type,Kilo,Age,Insurance,Emptying,Visit) VAlUES (?,?,?,?,?,?,?)',[Brand,Type,Kilo,Age,Insurance,Empty,Visit],(err,result)=>{
-        if(err){
-          console.log(err);
-          res.send("Error Occured While Adding !");
-        }
-        else{
-          res.send("All Attributes Were Inserted Into The Table Car");
-        }
-      })
-});
+app.post('/addcar', (req, res) => { 
+  const token1 = req.headers.authorization;
+  if (!token1) {
+    return res.status(401).send('Missing authorization header');
+  }
+  const token = token1.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'jwtSecretKey');
+  const userId = decodedToken.id;
+  const Brand = req.body.Brand;
+  const Type = req.body.Type;
+  const Kilo = req.body.Kilo;
+  const Age = req.body.Age;
+  const Insurance = req.body.Insurance;   
+  const Empty = req.body.Empty;
+  const Visit = req.body.Visit;
+
+  db.query('INSERT INTO car(Brand, Type, Kilo, Age, Insurance, Emptying, Visit, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [Brand, Type, Kilo, Age, Insurance, Empty, Visit, userId], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error Occured While Adding !");
+    }
+    else {
+      res.send("All Attributes Were Inserted Into The Table Car");
+    }
+  });
+}
+);
 app.post('/register', (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -97,9 +106,15 @@ app.post('/login', (req, res) => {
   const password = req.body.password;
   db.query('SELECT * FROM user WHERE useremail = ? AND password = ?', [email, password], (err, result) => {
     if (result.length > 0) {
-      const id = result[0].id;
-      const mecorcar=result[0].mecorcar
-      const token = jwt.sign({ id , mecorcar }, "jwtSecretKey", { expiresIn: 300 });
+      const user = result[0];
+      const payload = {
+        id: user.user_id,
+        mecorcar: user.mecorcar,
+
+      };
+      console.log('User Type in back-end:', payload.mecorcar); // Add this line
+      console.log("user id is ", payload.id)
+      const token = jwt.sign(payload, "jwtSecretKey", { expiresIn: 300 });
       res.json({ Login: true, token, result })
     } else {
       res.json({ Login: false, result })
