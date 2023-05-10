@@ -21,7 +21,7 @@ export default function CarComponent({navigation}) {
         <View style={styles.Rectangle2520} />
       </View>
       <View  >
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Details")}>
+      <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Details')}>
           <Text style ={styles.Text}>View More details</Text>
         </TouchableOpacity>
       </View>
@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
   },
   Aygo: {
     color: "rgba(22,22,26,1)",
-    fontSize: "14px",
-    lineHeight: "14px",
-    fontFamily: "Inter, sans-serif",
+    // fontSize: "14px",
+    // lineHeight: "14px",
+    // fontFamily: "Inter, sans-serif",
     fontWeight: "500",
-    letterSpacing: "0.28px",
+    // letterSpacing: "0.28px",
   },
   Rectangle2520: {
     position: "absolute",
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     left: 12.65,
     alignItems: "center",
     width: 196,
-    height: 34.4,
+    height: 37.4,
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 4,

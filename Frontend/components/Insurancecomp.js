@@ -20,8 +20,8 @@ export default function Insurance1() {
 
 const styles = StyleSheet.create({
   Insurance1: {
-    width: 108,
-    height: 93,
+    width: 109,
+    height: 110,
     paddingLeft: 7,
     paddingRight: 36,
     paddingTop: 9,
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
   
-    
   },
   Vector: {
     width: 18,
@@ -47,20 +46,12 @@ const styles = StyleSheet.create({
   },
   Insurance: {
     color: "rgba(141,152,168,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "700",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
   _20230804: {
     color: "rgba(112,112,204,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "500",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
 })

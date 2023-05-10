@@ -20,8 +20,8 @@ export default function Carage() {
 
 const styles = StyleSheet.create({
   Carage: {
-    width: 104,
-    height: 93,
+    width: 109,
+    height: 100,
     paddingLeft: 4,
     paddingRight: 36,
     paddingTop: 11,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: "100%",
     boxSizing: "border-box",
-    justifyContent:'space-between',
+    justifyContent:'space-between'
   },
   Vector: {
     width: 18,
@@ -45,20 +45,12 @@ const styles = StyleSheet.create({
   },
   CarAge: {
     color: "rgba(141,152,168,1)",
-    fontSize: "10px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "700",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
   _20200505: {
     color: "rgba(112,112,204,1)",
-    fontSize: "9px",
-    lineHeight: "10px",
-    fontFamily: "Inter, sans-serif",
     fontWeight: "500",
-    letterSpacing: "0.2px",
     textDecoration: "underline",
   },
 })
